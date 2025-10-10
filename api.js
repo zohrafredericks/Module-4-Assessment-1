@@ -1,20 +1,22 @@
+// ---------------- SELECT ELEMENTS ----------------
 const draggables = document.querySelectorAll('.draggable');
 const rightColumn = document.getElementById('right-column');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// Snap positions for categories including left/right shoes
+// ---------------- SNAP POSITIONS ----------------
+// Adjusted for stickman.jpg
 const snapPositions = {
-  eyes: { top: 85, left: 140, width: 60 },
-  glasses: { top: 80, left: 130, width: 80 },
-  hats: { top: 30, left: 120, width: 100 },
-  shirts: { top: 140, left: 100, width: 120 },
-  pants: { top: 230, left: 100, width: 120 },
-  shoe_L: { top: 320, left: 100, width: 50 },
-  shoe_R: { top: 320, left: 190, width: 50 }
+  eyes: { top: 90, left: 145, width: 60 },
+  glasses: { top: 85, left: 135, width: 80 },
+  hats: { top: 25, left: 125, width: 100 },
+  shirts: { top: 150, left: 105, width: 120 },
+  pants: { top: 240, left: 105, width: 120 },
+  shoe_L: { top: 335, left: 110, width: 50 },
+  shoe_R: { top: 335, left: 190, width: 50 }
 };
 
-// Drag from left column
+// ---------------- DRAG & DROP ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -31,9 +33,9 @@ rightColumn.addEventListener('drop', e => {
   addItem(src, category);
 });
 
-// Add item with snap positions
+// ---------------- ADD ITEM ----------------
 function addItem(src, category) {
-  // Determine correct category for shoes
+  // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -56,7 +58,7 @@ function addItem(src, category) {
   rightColumn.appendChild(img);
 }
 
-// Random outfit generator
+// ---------------- RANDOM OUTFIT ----------------
 randomBtn.addEventListener('click', () => {
   clearCanvas();
   const categories = {
@@ -76,7 +78,7 @@ randomBtn.addEventListener('click', () => {
   }
 });
 
-// Clear canvas overlays
+// ---------------- CLEAR CANVAS ----------------
 clearBtn.addEventListener('click', clearCanvas);
 
 function clearCanvas() {
@@ -85,3 +87,5 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
+
