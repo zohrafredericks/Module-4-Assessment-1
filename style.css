@@ -1,12 +1,94 @@
-#right-colomn img{
-     width:230px;
-     margin-left:140px;
-     margin-top:100px;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #eaeaea;
 }
 
-img#logo{
-    position:fixed;
-    width:150px;
-    botton:20px;
-    right:10px
+#container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+#left-column {
+  width: 240px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+#left-column h3 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+#left-column img.draggable {
+  width: 100%;
+  cursor: grab;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#left-column img.draggable:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#left-column .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#left-column button {
+  background: #ff6b6b;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+#left-column button:hover {
+  background: #ff4b4b;
+}
+
+#right-column {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+#right-column img#stickman {
+  width: 300px;
+  z-index: 1;
+}
+
+#right-column img#logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 80px;
+  opacity: 0.7;
+  z-index: 2;
 }
