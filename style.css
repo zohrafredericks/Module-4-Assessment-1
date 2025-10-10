@@ -1,15 +1,18 @@
+/* ---------------- BODY ---------------- */
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #eaeaea;
 }
 
+/* ---------------- CONTAINER ---------------- */
 #container {
   display: flex;
   gap: 20px;
   padding: 20px;
 }
 
+/* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   width: 240px;
   background: #fff;
@@ -45,6 +48,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+/* ---------------- BUTTONS ---------------- */
 #left-column .buttons {
   display: flex;
   flex-direction: column;
@@ -66,6 +70,7 @@ body {
   background: #ff4b4b;
 }
 
+/* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex: 1;
   position: relative;
@@ -79,11 +84,13 @@ body {
   overflow: hidden;
 }
 
+/* Stickman figure */
 #right-column img#stickman {
-  width: 300px;
+  width: 320px; /* Adjusted for stickman.jpg */
   z-index: 1;
 }
 
+/* Logo in corner */
 #right-column img#logo {
   position: absolute;
   bottom: 10px;
@@ -92,3 +99,24 @@ body {
   opacity: 0.7;
   z-index: 2;
 }
+
+/* ---------------- ACCESSORY TRANSFORMS ---------------- */
+/* Make items appear more natural on stickman */
+#right-column img[data-category="glasses"] {
+  transform: translateY(0px) rotate(-2deg);
+}
+
+#right-column img[data-category="hats"] {
+  transform: translateY(-5px) rotate(0deg);
+}
+
+#right-column img[data-category="shoe_L"] {
+  transform: translateY(0px) rotate(-5deg);
+}
+
+#right-column img[data-category="shoe_R"] {
+  transform: translateY(0px) rotate(5deg);
+}
+
+
+ 
