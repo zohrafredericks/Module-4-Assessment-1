@@ -5,15 +5,15 @@ const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
-// Adjusted for stickman.jpg
+// Adjust to match stickman.jpg
 const snapPositions = {
   eyes: { top: 90, left: 145, width: 60 },
-  glasses: { top: 85, left: 135, width: 80 },
   hats: { top: 25, left: 125, width: 100 },
   shirts: { top: 150, left: 105, width: 120 },
   pants: { top: 240, left: 105, width: 120 },
   shoe_L: { top: 335, left: 110, width: 50 },
-  shoe_R: { top: 335, left: 190, width: 50 }
+  shoe_R: { top: 335, left: 190, width: 50 },
+  extras: { top: 70, left: 120, width: 110 } // new category for catface, roundface, redhat, mansuite
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -29,19 +29,19 @@ rightColumn.addEventListener('dragover', e => e.preventDefault());
 rightColumn.addEventListener('drop', e => {
   e.preventDefault();
   const src = e.dataTransfer.getData('text/plain');
-  const category = e.dataTransfer.getData('category');
-  addItem(src, category);
-});
+  let category = e.dataTransfer.getData('category');
 
-// ---------------- ADD ITEM ----------------
-function addItem(src, category) {
   // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
   }
 
-  // Remove existing item of same category
+  addItem(src, category);
+});
+
+// ---------------- ADD ITEM ----------------
+function addItem(src, category) {
   const existing = rightColumn.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -50,6 +50,8 @@ function addItem(src, category) {
   img.dataset.category = category;
 
   const snap = snapPositions[category];
+  if (!snap) return; // safety check
+
   img.style.position = 'absolute';
   img.style.top = `${snap.top}px`;
   img.style.left = `${snap.left}px`;
@@ -61,19 +63,20 @@ function addItem(src, category) {
 // ---------------- RANDOM OUTFIT ----------------
 randomBtn.addEventListener('click', () => {
   clearCanvas();
+
   const categories = {
     eyes: ['images/eyes_01.png','images/eyes_03.png'],
-    glasses: ['images/glasses_01.png','images/glasses_03.png'],
-    hats: ['images/hat_02.png'],
-    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png'],
+    hats: ['images/hat_02.png','images/redhat.png'],
+    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.png'],
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
     shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
-    shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png']
+    shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
+    extras: ['images/catface.png','images/roundface.png'] // your new images
   };
 
   for (const cat in categories) {
     const files = categories[cat];
-    const file = files[Math.floor(Math.random()*files.length)];
+    const file = files[Math.floor(Math.random() * files.length)];
     addItem(file, cat);
   }
 });
@@ -87,5 +90,8 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
+
+
 
 
