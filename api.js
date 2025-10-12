@@ -7,12 +7,12 @@ const clearBtn = document.getElementById('clearBtn');
 // ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
   eyes: { top: 90, left: 145, width: 60 },
-  hats: { top: 25, left: 125, width: 100 },
-  shirts: { top: 150, left: 105, width: 120 },
+  hats: { top: 25, left: 125, width: 100 },        // default hat
+  shirts: { top: 150, left: 105, width: 120 },     // default shirts
   pants: { top: 240, left: 105, width: 120 },
   shoe_L: { top: 335, left: 110, width: 50 },
   shoe_R: { top: 335, left: 190, width: 50 },
-  extras: { top: 70, left: 120, width: 110 } // only for catface/roundface
+  faces: { top: 70, left: 125, width: 100 }        // average for catface & roundface
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -30,6 +30,7 @@ rightColumn.addEventListener('drop', e => {
   let src = e.dataTransfer.getData('text/plain');
   let category = e.dataTransfer.getData('category');
 
+  // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -47,8 +48,13 @@ function addItem(src, category) {
   img.src = src;
   img.dataset.category = category;
 
-  const snap = snapPositions[category];
-  if (!snap) return;
+  // Apply individual positions for new images
+  let snap;
+  if (src.includes('catface.png')) snap = { top: 75, left: 130, width: 90 };
+  else if (src.includes('roundface.png')) snap = { top: 70, left: 125, width: 100 };
+  else if (src.includes('redhat.png')) snap = { top: 15, left: 120, width: 110 };
+  else if (src.includes('mansuite.png')) snap = { top: 150, left: 105, width: 120 };
+  else snap = snapPositions[category];
 
   img.style.position = 'absolute';
   img.style.top = `${snap.top}px`;
@@ -69,7 +75,7 @@ randomBtn.addEventListener('click', () => {
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
     shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
     shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
-    extras: ['images/catface.png','images/roundface.png'] // only these two
+    faces: ['images/catface.png','images/roundface.png']
   };
 
   for (const cat in categories) {
@@ -88,6 +94,3 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
-
-
-   
