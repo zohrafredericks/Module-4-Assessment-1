@@ -1,20 +1,21 @@
+// ---------------- SELECT ELEMENTS ----------------
 const draggables = document.querySelectorAll('.draggable');
 const rightColumn = document.getElementById('right-column');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// Snap positions for all categories
+// ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
   eyes: { top: 90, left: 145, width: 60 },
-  hats: { top: 25, left: 125, width: 100 },
+  hats: { top: 25, left: 125, width: 100 },        // default hat
   shirts: { top: 150, left: 105, width: 120 },
   pants: { top: 240, left: 105, width: 120 },
   shoe_L: { top: 335, left: 110, width: 50 },
   shoe_R: { top: 335, left: 190, width: 50 },
-  faces: { top: 70, left: 125, width: 100 } // average for catface & roundface
+  faces: { top: 70, left: 125, width: 100 }        // average for faces
 };
 
-// Drag & Drop
+// ---------------- DRAG & DROP ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -37,7 +38,7 @@ rightColumn.addEventListener('drop', e => {
   addItem(src, category);
 });
 
-// Add Item
+// ---------------- ADD ITEM ----------------
 function addItem(src, category) {
   const existing = rightColumn.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
@@ -48,10 +49,10 @@ function addItem(src, category) {
 
   // Custom snap positions for new images
   let snap;
-  if (src.includes('catface.png')) snap = { top: 75, left: 130, width: 90 };
-  else if (src.includes('roundface.png')) snap = { top: 70, left: 125, width: 100 };
-  else if (src.includes('redhat.png')) snap = { top: 15, left: 120, width: 110 };
-  else if (src.includes('mansuite.png')) snap = { top: 150, left: 105, width: 120 };
+  if (src.includes('catface.jpg')) snap = { top: 75, left: 130, width: 90 };
+  else if (src.includes('roundface.jpg')) snap = { top: 70, left: 125, width: 100 };
+  else if (src.includes('redhat.jpg')) snap = { top: 15, left: 120, width: 110 };
+  else if (src.includes('mansuite.jpg')) snap = { top: 150, left: 105, width: 120 };
   else snap = snapPositions[category];
 
   img.style.position = 'absolute';
@@ -62,18 +63,18 @@ function addItem(src, category) {
   rightColumn.appendChild(img);
 }
 
-// Random Outfit
+// ---------------- RANDOM OUTFIT ----------------
 randomBtn.addEventListener('click', () => {
   clearCanvas();
 
   const categories = {
     eyes: ['images/eyes_01.png','images/eyes_03.png'],
-    hats: ['images/hat_02.png','images/redhat.png'],
-    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.png'],
+    hats: ['images/hat_02.png','images/redhat.jpg'],
+    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
     shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
     shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
-    faces: ['images/catface.png','images/roundface.png']
+    faces: ['images/catface.jpg','images/roundface.jpg']
   };
 
   for (const cat in categories) {
@@ -83,11 +84,15 @@ randomBtn.addEventListener('click', () => {
   }
 });
 
-// Clear Canvas
+// ---------------- CLEAR CANVAS ----------------
 clearBtn.addEventListener('click', clearCanvas);
+
 function clearCanvas() {
   const images = rightColumn.querySelectorAll('img');
   images.forEach(img => {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
+
+  
