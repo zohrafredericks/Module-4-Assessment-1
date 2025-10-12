@@ -1,21 +1,20 @@
-// ---------------- SELECT ELEMENTS ----------------
 const draggables = document.querySelectorAll('.draggable');
 const rightColumn = document.getElementById('right-column');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// ---------------- SNAP POSITIONS ----------------
+// Snap positions for all categories
 const snapPositions = {
   eyes: { top: 90, left: 145, width: 60 },
-  hats: { top: 25, left: 125, width: 100 },        // default hat
-  shirts: { top: 150, left: 105, width: 120 },     // default shirts
+  hats: { top: 25, left: 125, width: 100 },
+  shirts: { top: 150, left: 105, width: 120 },
   pants: { top: 240, left: 105, width: 120 },
   shoe_L: { top: 335, left: 110, width: 50 },
   shoe_R: { top: 335, left: 190, width: 50 },
-  faces: { top: 70, left: 125, width: 100 }        // average for catface & roundface
+  faces: { top: 70, left: 125, width: 100 } // average for catface & roundface
 };
 
-// ---------------- DRAG & DROP ----------------
+// Drag & Drop
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -30,7 +29,6 @@ rightColumn.addEventListener('drop', e => {
   let src = e.dataTransfer.getData('text/plain');
   let category = e.dataTransfer.getData('category');
 
-  // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -39,7 +37,7 @@ rightColumn.addEventListener('drop', e => {
   addItem(src, category);
 });
 
-// ---------------- ADD ITEM ----------------
+// Add Item
 function addItem(src, category) {
   const existing = rightColumn.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
@@ -48,7 +46,7 @@ function addItem(src, category) {
   img.src = src;
   img.dataset.category = category;
 
-  // Apply individual positions for new images
+  // Custom snap positions for new images
   let snap;
   if (src.includes('catface.png')) snap = { top: 75, left: 130, width: 90 };
   else if (src.includes('roundface.png')) snap = { top: 70, left: 125, width: 100 };
@@ -64,7 +62,7 @@ function addItem(src, category) {
   rightColumn.appendChild(img);
 }
 
-// ---------------- RANDOM OUTFIT ----------------
+// Random Outfit
 randomBtn.addEventListener('click', () => {
   clearCanvas();
 
@@ -85,9 +83,8 @@ randomBtn.addEventListener('click', () => {
   }
 });
 
-// ---------------- CLEAR CANVAS ----------------
+// Clear Canvas
 clearBtn.addEventListener('click', clearCanvas);
-
 function clearCanvas() {
   const images = rightColumn.querySelectorAll('img');
   images.forEach(img => {
