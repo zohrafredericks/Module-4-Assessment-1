@@ -1,22 +1,22 @@
-// ---------------- SELECT ELEMENTS ----------------
 const draggables = document.querySelectorAll('.draggable');
 const stickmanWrapper = document.getElementById('stickman-wrapper');
 const stickman = document.getElementById('stickman');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
+// Original stickman width in images folder
+const ORIGINAL_WIDTH = 1123;
+
 // ---------------- SNAP POSITIONS ----------------
-// Base positions for stickman width of 280px
 const snapPositions = {
-  hats:      { top: -10, left: 105, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
-  glasses:   { top: 80, left: 125, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
-  eyes:      { top: 85, left: 130, width: 50, rotate: 0, z: 8, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
-  faces:     { top: 70, left: 115, width: 75, rotate: 0, z: 9, shadow: '0 2px 5px rgba(0,0,0,0.3)' },
-  shirts:    { top: 140, left: 95, width: 115, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  pants:     { top: 230, left: 95, width: 115, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
-  suite:     { top: 140, left: 95, width: 115, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  shoe_L:    { top: 315, left: 100, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  shoe_R:    { top: 315, left: 180, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' }
+  eyes:      { top: 75, left: 60, width: 50, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  glasses:   { top: 70, left: 55, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
+  hats:      { top: 10, left: 45, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
+  shirts:    { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  pants:     { top: 270, left: 55, width: 130, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
+  shoe_L:    { top: 370, left: 55, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shoe_R:    { top: 370, left: 140, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -34,6 +34,7 @@ stickmanWrapper.addEventListener('drop', e => {
   let src = e.dataTransfer.getData('text/plain');
   let category = e.dataTransfer.getData('category');
 
+  // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -58,16 +59,17 @@ function addItem(src, category) {
   if (src.includes('catface.jpg')) snap = snapPositions.faces;
   else if (src.includes('roundface.jpg')) snap = snapPositions.faces;
   else if (src.includes('redhat.jpg')) snap = snapPositions.hats;
-  else if (src.includes('mansuite.jpg')) snap = snapPositions.suite;
+  else if (src.includes('mansuite.jpg')) snap = snapPositions.shirts;
   else snap = snapPositions[category];
 
-  // Scale relative to stickman width
-  const scaleFactor = stickman.clientWidth / 280; // 280 is base width
-  img.style.width = `${snap.width * scaleFactor}px`;
-  img.style.top = `${snap.top * scaleFactor}px`;
-  img.style.left = `${snap.left * scaleFactor}px`;
+  // Scale relative to stickman width (200px)
+  const scaleFactor = stickman.clientWidth / ORIGINAL_WIDTH;
+
+  img.style.width     = `${snap.width * scaleFactor}px`;
+  img.style.top       = `${snap.top * scaleFactor}px`;
+  img.style.left      = `${snap.left * scaleFactor}px`;
   img.style.transform = `rotate(${snap.rotate}deg)`;
-  img.style.zIndex = snap.z;
+  img.style.zIndex    = snap.z;
   img.style.boxShadow = snap.shadow;
 
   stickmanWrapper.appendChild(img);
@@ -104,3 +106,4 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
