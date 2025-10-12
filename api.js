@@ -4,15 +4,16 @@ const rightColumn = document.getElementById('right-column');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// ---------------- SNAP POSITIONS ----------------
+// ---------------- SNAP POSITIONS, ROTATIONS & Z-INDEX ----------------
 const snapPositions = {
-  eyes: { top: 90, left: 145, width: 60 },
-  hats: { top: 25, left: 125, width: 100 },        // default hat
-  shirts: { top: 150, left: 105, width: 120 },
-  pants: { top: 240, left: 105, width: 120 },
-  shoe_L: { top: 335, left: 110, width: 50 },
-  shoe_R: { top: 335, left: 190, width: 50 },
-  faces: { top: 70, left: 125, width: 100 }        // average for faces
+  eyes:      { top: 90, left: 145, width: 60, rotate: 0, z: 5, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  glasses:   { top: 85, left: 135, width: 80, rotate: -2, z: 6, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
+  hats:      { top: 25, left: 125, width: 100, rotate: 5, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
+  shirts:    { top: 150, left: 105, width: 120, rotate: 0, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  pants:     { top: 240, left: 105, width: 120, rotate: 0, z: 3, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
+  shoe_L:    { top: 335, left: 110, width: 50, rotate: -5, z: 2, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shoe_R:    { top: 335, left: 190, width: 50, rotate: 5, z: 2, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  faces:     { top: 70, left: 125, width: 100, rotate: 0, z: 5, shadow: '0 2px 4px rgba(0,0,0,0.3)' }
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -46,19 +47,23 @@ function addItem(src, category) {
   const img = document.createElement('img');
   img.src = src;
   img.dataset.category = category;
+  img.style.position = 'absolute';
 
-  // Custom snap positions for new images
+  // Snap, rotation, z-index, shadow for new images
   let snap;
-  if (src.includes('catface.jpg')) snap = { top: 75, left: 130, width: 90 };
-  else if (src.includes('roundface.jpg')) snap = { top: 70, left: 125, width: 100 };
-  else if (src.includes('redhat.jpg')) snap = { top: 15, left: 120, width: 110 };
-  else if (src.includes('mansuite.jpg')) snap = { top: 150, left: 105, width: 120 };
+  if (src.includes('catface.jpg')) snap = { top: 75, left: 130, width: 90, rotate: -5, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
+  else if (src.includes('roundface.jpg')) snap = { top: 70, left: 125, width: 100, rotate: 3, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
+  else if (src.includes('redhat.jpg')) snap = { top: 15, left: 120, width: 110, rotate: 8, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' };
+  else if (src.includes('mansuite.jpg')) snap = { top: 150, left: 105, width: 120, rotate: -2, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' };
   else snap = snapPositions[category];
 
-  img.style.position = 'absolute';
+  // Apply position, rotation, z-index, shadow
   img.style.top = `${snap.top}px`;
   img.style.left = `${snap.left}px`;
   img.style.width = `${snap.width}px`;
+  img.style.zIndex = snap.z;
+  img.style.transform = `rotate(${snap.rotate}deg)`;
+  img.style.boxShadow = snap.shadow;
 
   rightColumn.appendChild(img);
 }
@@ -69,6 +74,7 @@ randomBtn.addEventListener('click', () => {
 
   const categories = {
     eyes: ['images/eyes_01.png','images/eyes_03.png'],
+    glasses: ['images/glasses_01.png','images/glasses_03.png'],
     hats: ['images/hat_02.png','images/redhat.jpg'],
     shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
@@ -93,6 +99,3 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
-
-
-  
