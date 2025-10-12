@@ -10,6 +10,7 @@
   <div id="container">
     <!-- LEFT COLUMN -->
     <div id="left-column">
+      <!-- existing categories remain intact -->
       <div class="category">
         <h3>Eyes</h3>
         <img src="images/eyes_01.png" class="draggable" data-category="eyes" draggable="true">
@@ -53,16 +54,16 @@
         <img src="images/shoe_02_R.png" class="draggable" data-category="shoes" draggable="true">
       </div>
 
-      <!-- 🎉 NEW EXTRA CATEGORY -->
+      <!-- Extras -->
       <div class="category">
         <h3>Extras</h3>
         <img src="images/catface.jpg" class="draggable" data-category="faces" draggable="true">
-        <img src="images/mansuite.jpg" class="draggable" data-category="suite" draggable="true">
-        <img src="images/redhat.jpg" class="draggable" data-category="hats" draggable="true">
         <img src="images/roundface.jpg" class="draggable" data-category="faces" draggable="true">
+        <img src="images/mansuite.jpg" class="draggable" data-category="shirts" draggable="true">
+        <img src="images/redhat.jpg" class="draggable" data-category="hats" draggable="true">
       </div>
 
-      <!-- BUTTONS -->
+      <!-- Buttons -->
       <div class="buttons">
         <button id="randomBtn">Random Outfit</button>
         <button id="clearBtn">Clear</button>
@@ -71,9 +72,8 @@
 
     <!-- RIGHT COLUMN -->
     <div id="right-column">
-      <!-- Stickman Wrapper (responsive) -->
-      <div id="stickman-wrapper" style="position: relative; width: 40vw; max-width: 320px;">
-        <img id="stickman" src="images/stickman.jpg" alt="Stickman Base" style="width: 100%;">
+      <div id="stickman-wrapper">
+        <img id="stickman" src="images/stickman.jpg" alt="Stickman Base">
         <img id="logo" src="images/logo.png" alt="Logo">
       </div>
     </div>
