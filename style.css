@@ -76,7 +76,7 @@ body {
   position: relative;
   background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
   border-radius: 12px;
-  padding: 40px 20px; /* extra top/bottom space */
+  padding: 40px 20px; /* extra space for hat/shoes */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,14 +84,17 @@ body {
   overflow: hidden;
 }
 
-/* Stickman wrapper */
+/* ---------------- STICKMAN WRAPPER ---------------- */
 #stickman-wrapper {
   position: relative;
+  width: 40vw;      /* responsive width */
+  max-width: 280px; /* base size */
 }
 
 /* Stickman figure */
 #stickman-wrapper img#stickman {
-  width: 280px; /* smaller for space around hat/shoes */
+  width: 100%;
+  display: block;
   z-index: 1;
 }
 
@@ -121,5 +124,4 @@ body {
 #stickman-wrapper img[data-category="shoe_R"] {
   transform: rotate(5deg);
 }
-
 
