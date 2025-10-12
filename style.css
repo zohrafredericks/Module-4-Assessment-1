@@ -76,7 +76,7 @@ body {
   position: relative;
   background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
   border-radius: 12px;
-  padding: 20px;
+  padding: 40px 20px; /* extra top/bottom space */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,14 +84,14 @@ body {
   overflow: hidden;
 }
 
-/* Stickman wrapper (new) */
+/* Stickman wrapper */
 #stickman-wrapper {
-  position: relative; /* Crucial for accessories to stick to the stickman */
+  position: relative;
 }
 
 /* Stickman figure */
 #stickman-wrapper img#stickman {
-  width: 320px; /* Adjusted for stickman.jpg */
+  width: 280px; /* smaller for space around hat/shoes */
   z-index: 1;
 }
 
@@ -106,21 +106,20 @@ body {
 }
 
 /* ---------------- ACCESSORY TRANSFORMS ---------------- */
-/* Make items appear more natural on stickman */
 #stickman-wrapper img[data-category="glasses"] {
-  transform: translateY(0px) rotate(-2deg);
+  transform: rotate(-2deg);
 }
 
 #stickman-wrapper img[data-category="hats"] {
-  transform: translateY(-5px) rotate(0deg);
+  transform: rotate(0deg);
 }
 
 #stickman-wrapper img[data-category="shoe_L"] {
-  transform: translateY(0px) rotate(-5deg);
+  transform: rotate(-5deg);
 }
 
 #stickman-wrapper img[data-category="shoe_R"] {
-  transform: translateY(0px) rotate(5deg);
+  transform: rotate(5deg);
 }
 
 
