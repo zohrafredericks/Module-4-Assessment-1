@@ -4,15 +4,15 @@ const stickman = document.getElementById('stickman');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// Snap positions relative to stickman width 280px
+// ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
-  eyes:      { top: 75, left: 120, width: 50, rotate: 0, z: 5, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
-  glasses:   { top: 70, left: 115, width: 70, rotate: -2, z: 6, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
+  eyes:      { top: 75, left: 120, width: 50, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  glasses:   { top: 72, left: 115, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
   hats:      { top: 0, left: 105, width: 110, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
-  shirts:    { top: 130, left: 95, width: 110, rotate: 0, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  pants:     { top: 220, left: 95, width: 110, rotate: 0, z: 3, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
-  shoe_L:    { top: 300, left: 100, width: 45, rotate: -5, z: 2, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  shoe_R:    { top: 300, left: 180, width: 45, rotate: 5, z: 2, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shirts:    { top: 130, left: 95, width: 110, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  pants:     { top: 220, left: 95, width: 110, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
+  shoe_L:    { top: 300, left: 100, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shoe_R:    { top: 300, left: 180, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
   faces:     { top: 65, left: 115, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
@@ -51,11 +51,11 @@ function addItem(src, category) {
 
   let snap;
 
-  // Specific snaps for new images
+  // Custom positions for new images
   if (src.includes('catface.jpg')) snap = { top: 65, left: 115, width: 75, rotate: -2, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
   else if (src.includes('roundface.jpg')) snap = { top: 63, left: 113, width: 80, rotate: 1, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
   else if (src.includes('redhat.jpg')) snap = { top: 0, left: 105, width: 110, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' };
-  else if (src.includes('mansuite.jpg')) snap = { top: 130, left: 95, width: 110, rotate: -1, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' };
+  else if (src.includes('mansuite.jpg')) snap = { top: 130, left: 95, width: 110, rotate: -1, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' };
   else snap = snapPositions[category];
 
   // Scale relative to stickman width (280px base)
@@ -101,5 +101,7 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
+
 
 
