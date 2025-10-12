@@ -1,11 +1,8 @@
+
 const draggables = document.querySelectorAll('.draggable');
 const stickmanWrapper = document.getElementById('stickman-wrapper');
-const stickman = document.getElementById('stickman');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
-
-// Original stickman image width (from images folder)
-const ORIGINAL_WIDTH = 1123;
 
 // ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
@@ -19,7 +16,7 @@ const snapPositions = {
   faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
-// ---------------- DRAG & DROP ----------------
+// ---------------- DRAG & DROP FOR ZONE ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -31,20 +28,21 @@ stickmanWrapper.addEventListener('dragover', e => e.preventDefault());
 
 stickmanWrapper.addEventListener('drop', e => {
   e.preventDefault();
-  let src = e.dataTransfer.getData('text/plain');
-  let category = e.dataTransfer.getData('category');
+  const src = e.dataTransfer.getData('text/plain');
+  const category = e.dataTransfer.getData('category');
 
-  // Identify left/right shoes
+  // Determine shoe side automatically
+  let finalCategory = category;
   if (category === 'shoes') {
-    if (src.includes('_L')) category = 'shoe_L';
-    if (src.includes('_R')) category = 'shoe_R';
+    finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
   }
 
-  addItem(src, category);
+  addItem(src, finalCategory);
 });
 
 // ---------------- ADD ITEM ----------------
 function addItem(src, category) {
+  // Remove existing item in same category
   const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -54,59 +52,66 @@ function addItem(src, category) {
   img.style.position = 'absolute';
   img.draggable = false;
 
-  // Choose position based on category
-  let snap;
-  if (src.includes('catface.jpg') || src.includes('roundface.jpg')) snap = snapPositions.faces;
-  else if (src.includes('redhat.jpg')) snap = snapPositions.hats;
-  else if (src.includes('mansuite.jpg')) snap = snapPositions.shirts;
-  else snap = snapPositions[category];
-
+  const snap = snapPositions[category] || snapPositions.faces;
   positionItem(img, snap);
   stickmanWrapper.appendChild(img);
 }
 
-// ---------------- POSITION ITEM ----------------
+// ---------------- POSITION ITEM (WITH ASPECT RATIO) ----------------
 function positionItem(img, snap) {
-  const scaleFactor = stickman.clientWidth / ORIGINAL_WIDTH;
+  const stickmanWidth = stickmanWrapper.clientWidth;
+  const scaleFactor = stickmanWidth / 1123; // original stickman width from image
 
-  img.style.width     = `${snap.width * scaleFactor}px`;
-  img.style.top       = `${snap.top * scaleFactor}px`;
-  img.style.left      = `${snap.left * scaleFactor}px`;
-  img.style.transform = `rotate(${snap.rotate}deg)`;
-  img.style.zIndex    = snap.z;
-  img.style.boxShadow = snap.shadow;
+  const tempImg = new Image();
+  tempImg.src = img.src;
+  tempImg.onload = () => {
+    const aspect = tempImg.width / tempImg.height;
+    let newWidth = snap.width * scaleFactor;
+    let newHeight = newWidth / aspect;
+    if (newHeight > snap.width * scaleFactor / aspect) newHeight = newWidth / aspect;
+
+    img.style.width = `${newWidth}px`;
+    img.style.height = `${newHeight}px`;
+    img.style.top = `${snap.top * scaleFactor}px`;
+    img.style.left = `${snap.left * scaleFactor}px`;
+    img.style.transform = `rotate(${snap.rotate}deg) translateX(-50%)`;
+    img.style.zIndex = snap.z;
+    img.style.boxShadow = snap.shadow;
+  };
 }
 
 // ---------------- RANDOM OUTFIT ----------------
-randomBtn.addEventListener('click', () => {
-  clearCanvas();
+if (randomBtn) {
+  randomBtn.addEventListener('click', () => {
+    clearCanvas();
 
-  const categories = {
-    eyes: ['images/eyes_01.png','images/eyes_03.png'],
-    glasses: ['images/glasses_01.png','images/glasses_03.png'],
-    hats: ['images/hat_02.png','images/redhat.jpg'],
-    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
-    pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
-    shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
-    shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
-    faces: ['images/catface.jpg','images/roundface.jpg']
-  };
+    const categories = {
+      eyes: ['images/eyes_01.png','images/eyes_03.png'],
+      glasses: ['images/glasses_01.png','images/glasses_03.png'],
+      hats: ['images/hat_02.png','images/redhat.jpg'],
+      shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
+      pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
+      shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
+      shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
+      faces: ['images/catface.jpg','images/roundface.jpg']
+    };
 
-  for (const cat in categories) {
-    const files = categories[cat];
-    const file = files[Math.floor(Math.random() * files.length)];
-    addItem(file, cat);
-  }
-});
+    for (const cat in categories) {
+      const files = categories[cat];
+      const file = files[Math.floor(Math.random() * files.length)];
+      addItem(file, cat);
+    }
+  });
+}
 
 // ---------------- CLEAR CANVAS ----------------
-clearBtn.addEventListener('click', clearCanvas);
+if (clearBtn) {
+  clearBtn.addEventListener('click', clearCanvas);
+}
 
 function clearCanvas() {
-  const images = stickmanWrapper.querySelectorAll('img');
-  images.forEach(img => {
-    if (img.id !== 'stickman') img.remove();
-  });
+  const images = stickmanWrapper.querySelectorAll('img[data-category]');
+  images.forEach(img => img.remove());
 }
 
 // ---------------- RESIZE HANDLER ----------------
@@ -117,4 +122,3 @@ window.addEventListener('resize', () => {
     if (snap) positionItem(img, snap);
   });
 });
-
