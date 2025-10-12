@@ -48,7 +48,6 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* ---------------- BUTTONS ---------------- */
 #left-column .buttons {
   display: flex;
   flex-direction: column;
@@ -73,27 +72,25 @@ body {
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex: 1;
-  position: relative;
-  background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
-  border-radius: 12px;
-  padding: 40px 20px; /* extra space for hat/shoes */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* stickman starts at top */
+  padding: 20px;
+  background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
+  border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
   overflow: hidden;
 }
 
-/* ---------------- STICKMAN WRAPPER ---------------- */
+/* Stickman wrapper */
 #stickman-wrapper {
   position: relative;
-  width: 40vw;      /* responsive width */
-  max-width: 280px; /* base size */
+  width: 200px; /* final stickman width */
 }
 
-/* Stickman figure */
+/* Stickman base */
 #stickman-wrapper img#stickman {
-  width: 100%;
+  width: 100%; /* fills wrapper */
   display: block;
   z-index: 1;
 }
@@ -124,4 +121,5 @@ body {
 #stickman-wrapper img[data-category="shoe_R"] {
   transform: rotate(5deg);
 }
+
 
