@@ -5,7 +5,6 @@ const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
-// Adjust to match stickman.jpg
 const snapPositions = {
   eyes: { top: 90, left: 145, width: 60 },
   hats: { top: 25, left: 125, width: 100 },
@@ -13,7 +12,7 @@ const snapPositions = {
   pants: { top: 240, left: 105, width: 120 },
   shoe_L: { top: 335, left: 110, width: 50 },
   shoe_R: { top: 335, left: 190, width: 50 },
-  extras: { top: 70, left: 120, width: 110 } // new category for catface, roundface, redhat, mansuite
+  extras: { top: 70, left: 120, width: 110 } // only for catface/roundface
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -28,10 +27,9 @@ rightColumn.addEventListener('dragover', e => e.preventDefault());
 
 rightColumn.addEventListener('drop', e => {
   e.preventDefault();
-  const src = e.dataTransfer.getData('text/plain');
+  let src = e.dataTransfer.getData('text/plain');
   let category = e.dataTransfer.getData('category');
 
-  // Correct shoe category
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -50,7 +48,7 @@ function addItem(src, category) {
   img.dataset.category = category;
 
   const snap = snapPositions[category];
-  if (!snap) return; // safety check
+  if (!snap) return;
 
   img.style.position = 'absolute';
   img.style.top = `${snap.top}px`;
@@ -71,7 +69,7 @@ randomBtn.addEventListener('click', () => {
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
     shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
     shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
-    extras: ['images/catface.png','images/roundface.png'] // your new images
+    extras: ['images/catface.png','images/roundface.png'] // only these two
   };
 
   for (const cat in categories) {
@@ -90,5 +88,6 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
 
    
