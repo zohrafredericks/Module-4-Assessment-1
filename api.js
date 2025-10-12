@@ -4,7 +4,7 @@ const stickman = document.getElementById('stickman');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// Original stickman width in images folder
+// Original stickman image width (from images folder)
 const ORIGINAL_WIDTH = 1123;
 
 // ---------------- SNAP POSITIONS ----------------
@@ -34,7 +34,7 @@ stickmanWrapper.addEventListener('drop', e => {
   let src = e.dataTransfer.getData('text/plain');
   let category = e.dataTransfer.getData('category');
 
-  // Correct shoe category
+  // Identify left/right shoes
   if (category === 'shoes') {
     if (src.includes('_L')) category = 'shoe_L';
     if (src.includes('_R')) category = 'shoe_R';
@@ -52,17 +52,21 @@ function addItem(src, category) {
   img.src = src;
   img.dataset.category = category;
   img.style.position = 'absolute';
+  img.draggable = false;
 
+  // Choose position based on category
   let snap;
-
-  // Custom positions for new images
-  if (src.includes('catface.jpg')) snap = snapPositions.faces;
-  else if (src.includes('roundface.jpg')) snap = snapPositions.faces;
+  if (src.includes('catface.jpg') || src.includes('roundface.jpg')) snap = snapPositions.faces;
   else if (src.includes('redhat.jpg')) snap = snapPositions.hats;
   else if (src.includes('mansuite.jpg')) snap = snapPositions.shirts;
   else snap = snapPositions[category];
 
-  // Scale relative to stickman width (200px)
+  positionItem(img, snap);
+  stickmanWrapper.appendChild(img);
+}
+
+// ---------------- POSITION ITEM ----------------
+function positionItem(img, snap) {
   const scaleFactor = stickman.clientWidth / ORIGINAL_WIDTH;
 
   img.style.width     = `${snap.width * scaleFactor}px`;
@@ -71,8 +75,6 @@ function addItem(src, category) {
   img.style.transform = `rotate(${snap.rotate}deg)`;
   img.style.zIndex    = snap.z;
   img.style.boxShadow = snap.shadow;
-
-  stickmanWrapper.appendChild(img);
 }
 
 // ---------------- RANDOM OUTFIT ----------------
@@ -103,7 +105,16 @@ clearBtn.addEventListener('click', clearCanvas);
 function clearCanvas() {
   const images = stickmanWrapper.querySelectorAll('img');
   images.forEach(img => {
-    if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
+    if (img.id !== 'stickman') img.remove();
   });
 }
+
+// ---------------- RESIZE HANDLER ----------------
+window.addEventListener('resize', () => {
+  const items = stickmanWrapper.querySelectorAll('img[data-category]');
+  items.forEach(img => {
+    const snap = snapPositions[img.dataset.category];
+    if (snap) positionItem(img, snap);
+  });
+});
 
