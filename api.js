@@ -7,15 +7,15 @@ const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
-  hats: { top: 0, left: 105, width: 110, z: 10 },
-  glasses: { top: 75, left: 120, width: 60, rotate: -2, z: 7 },
-  eyes: { top: 80, left: 125, width: 50, z: 8 },
-  faces: { top: 50, left: 115, width: 70, z: 9 },
-  shirts: { top: 150, left: 105, width: 120, z: 6 },
-  pants: { top: 240, left: 105, width: 120, z: 5 },
-  suite: { top: 150, left: 105, width: 120, z: 6 },
-  shoe_L: { top: 335, left: 110, width: 50, z: 6 },
-  shoe_R: { top: 335, left: 190, width: 50, z: 6 }
+  hats:      { top: -10, left: 105, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
+  glasses:   { top: 80, left: 125, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
+  eyes:      { top: 85, left: 130, width: 50, rotate: 0, z: 8, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  faces:     { top: 70, left: 115, width: 75, rotate: 0, z: 9, shadow: '0 2px 5px rgba(0,0,0,0.3)' },
+  shirts:    { top: 140, left: 95, width: 115, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  pants:     { top: 230, left: 95, width: 115, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
+  suite:     { top: 140, left: 95, width: 115, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  shoe_L:    { top: 315, left: 100, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shoe_R:    { top: 315, left: 180, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' }
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -30,87 +30,46 @@ stickmanWrapper.addEventListener('dragover', e => e.preventDefault());
 
 stickmanWrapper.addEventListener('drop', e => {
   e.preventDefault();
-  const src = e.dataTransfer.getData('text/plain');
-  const category = e.dataTransfer.getData('category');
+  let src = e.dataTransfer.getData('text/plain');
+  let category = e.dataTransfer.getData('category');
 
-  switch(category){
-    case 'hats': addHat(src); break;
-    case 'glasses': addGlasses(src); break;
-    case 'eyes': addEyes(src); break;
-    case 'faces': addFace(src); break;
-    case 'shirts': addShirt(src); break;
-    case 'pants': addPants(src); break;
-    case 'suite': addSuite(src); break;
-    case 'shoes': addShoe(src); break;
+  if (category === 'shoes') {
+    if (src.includes('_L')) category = 'shoe_L';
+    if (src.includes('_R')) category = 'shoe_R';
   }
+
+  addItem(src, category);
 });
 
-// ---------------- ADD FUNCTIONS ----------------
-function addHat(src){
-  removeExisting('hats');
-  addItem(src, 'hats');
-}
-
-function addGlasses(src){
-  removeExisting('glasses');
-  addItem(src, 'glasses');
-}
-
-function addEyes(src){
-  removeExisting('eyes');
-  addItem(src, 'eyes');
-}
-
-function addFace(src){
-  removeExisting('faces');
-  addItem(src, 'faces');
-}
-
-function addShirt(src){
-  removeExisting('shirts');
-  addItem(src, 'shirts');
-}
-
-function addPants(src){
-  removeExisting('pants');
-  addItem(src, 'pants');
-}
-
-function addSuite(src){
-  // Remove shirt and pants first
-  removeExisting('shirts');
-  removeExisting('pants');
-  addItem(src, 'suite');
-}
-
-function addShoe(src){
-  let category = src.includes('_L') ? 'shoe_L' : 'shoe_R';
-  removeExisting(category);
-  addItem(src, category);
-}
-
-// Generic function to add item
-function addItem(src, category){
-  const snap = snapPositions[category];
-  const scaleFactor = stickman.clientWidth / 280;
+// ---------------- ADD ITEM ----------------
+function addItem(src, category) {
+  const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
+  if (existing) existing.remove();
 
   const img = document.createElement('img');
   img.src = src;
   img.dataset.category = category;
   img.style.position = 'absolute';
+
+  let snap;
+
+  // Custom positions for new images
+  if (src.includes('catface.jpg')) snap = snapPositions.faces;
+  else if (src.includes('roundface.jpg')) snap = snapPositions.faces;
+  else if (src.includes('redhat.jpg')) snap = snapPositions.hats;
+  else if (src.includes('mansuite.jpg')) snap = snapPositions.suite;
+  else snap = snapPositions[category];
+
+  // Scale relative to stickman width (280px base)
+  const scaleFactor = stickman.clientWidth / 280;
+  img.style.width = `${snap.width * scaleFactor}px`;
   img.style.top = `${snap.top * scaleFactor}px`;
   img.style.left = `${snap.left * scaleFactor}px`;
-  img.style.width = `${snap.width * scaleFactor}px`;
-  if(snap.rotate) img.style.transform = `rotate(${snap.rotate}deg)`;
+  img.style.transform = `rotate(${snap.rotate}deg)`;
   img.style.zIndex = snap.z;
+  img.style.boxShadow = snap.shadow;
 
   stickmanWrapper.appendChild(img);
-}
-
-// Remove existing item of a category
-function removeExisting(category){
-  const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
-  if(existing) existing.remove();
 }
 
 // ---------------- RANDOM OUTFIT ----------------
@@ -121,36 +80,30 @@ randomBtn.addEventListener('click', () => {
     eyes: ['images/eyes_01.png','images/eyes_03.png'],
     glasses: ['images/glasses_01.png','images/glasses_03.png'],
     hats: ['images/hat_02.png','images/redhat.jpg'],
-    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png'],
+    shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
     pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
-    suite: ['images/mansuite.jpg'],
     shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
     shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
     faces: ['images/catface.jpg','images/roundface.jpg']
   };
 
-  for(const cat in categories){
+  for (const cat in categories) {
     const files = categories[cat];
-    const file = files[Math.floor(Math.random()*files.length)];
-    if(cat === 'shoes'){ 
-      addShoe(file);
-    } else if(cat === 'suite'){
-      addSuite(file);
-    } else {
-      addItem(file, cat);
-    }
+    const file = files[Math.floor(Math.random() * files.length)];
+    addItem(file, cat);
   }
 });
 
 // ---------------- CLEAR CANVAS ----------------
 clearBtn.addEventListener('click', clearCanvas);
 
-function clearCanvas(){
+function clearCanvas() {
   const images = stickmanWrapper.querySelectorAll('img');
   images.forEach(img => {
-    if(img.id !== 'stickman' && img.id !== 'logo') img.remove();
+    if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
 
 
   
