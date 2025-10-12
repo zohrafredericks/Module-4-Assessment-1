@@ -6,6 +6,7 @@ const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
+// Base positions for stickman width of 280px
 const snapPositions = {
   hats:      { top: -10, left: 105, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
   glasses:   { top: 80, left: 125, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
@@ -60,8 +61,8 @@ function addItem(src, category) {
   else if (src.includes('mansuite.jpg')) snap = snapPositions.suite;
   else snap = snapPositions[category];
 
-  // Scale relative to stickman width (280px base)
-  const scaleFactor = stickman.clientWidth / 280;
+  // Scale relative to stickman width
+  const scaleFactor = stickman.clientWidth / 280; // 280 is base width
   img.style.width = `${snap.width * scaleFactor}px`;
   img.style.top = `${snap.top * scaleFactor}px`;
   img.style.left = `${snap.left * scaleFactor}px`;
@@ -103,10 +104,3 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
-
-
-
-  
-
-
-
