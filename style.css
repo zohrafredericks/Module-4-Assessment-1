@@ -1,124 +1,86 @@
 /* ---------------- BODY ---------------- */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #eaeaea;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-image: url('images/background01.png'); /* full-page background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* ---------------- CONTAINER ---------------- */
-#container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
+/* ---------------- IMAGE GALLERY ---------------- */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;              /* wrap images to next line if needed */
+    gap: 20px;                    /* spacing between images */
+    justify-content: center;      /* center images horizontally */
+    padding: 20px;
 }
 
-/* ---------------- LEFT COLUMN ---------------- */
-#left-column {
-  width: 240px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+/* Make all images consistent in size */
+.uniform-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;            /* fills box while keeping proportions */
+    border-radius: 10px;          /* optional: rounded corners */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* subtle shadow */
+    transition: transform 0.3s, box-shadow 0.3s; /* smooth hover effect */
 }
 
-.category {
-  margin-bottom: 20px;
+/* Hover effect for images */
+.uniform-image:hover {
+    transform: scale(1.05);       /* zoom slightly */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-#left-column h3 {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  color: #333;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-}
-
-#left-column img.draggable {
-  width: 100%;
-  cursor: grab;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#left-column img.draggable:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-#left-column .buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#left-column button {
-  background: #ff6b6b;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-#left-column button:hover {
-  background: #ff4b4b;
-}
-
-/* ---------------- RIGHT COLUMN ---------------- */
-#right-column {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* stickman starts at top */
-  padding: 20px;
-  background: linear-gradient(to bottom, #fdfdfd, #e1e1e1);
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  overflow: hidden;
-}
-
-/* Stickman wrapper */
+/* ---------------- STICKMAN ---------------- */
 #stickman-wrapper {
-  position: relative;
-  width: 200px; /* final stickman width */
+    display: flex;
+    justify-content: center;      /* center the stickman */
+    margin: 20px 0;
 }
 
-/* Stickman base */
-#stickman-wrapper img#stickman {
-  width: 100%; /* fills wrapper */
-  display: block;
-  z-index: 1;
+#stickman {
+    width: 280px;                 /* stickman smaller than gallery */
+    height: auto;
 }
 
-/* Logo in corner */
-#stickman-wrapper img#logo {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 80px;
-  opacity: 0.7;
-  z-index: 20;
+/* ---------------- HEADINGS & TEXT ---------------- */
+h1, h2, h3 {
+    text-align: center;
+    margin: 10px 0;
 }
 
-/* ---------------- ACCESSORY TRANSFORMS ---------------- */
-#stickman-wrapper img[data-category="glasses"] {
-  transform: rotate(-2deg);
+p {
+    text-align: center;
+    line-height: 1.5;
+    margin: 5px 20px;
 }
 
-#stickman-wrapper img[data-category="hats"] {
-  transform: rotate(0deg);
+/* ---------------- BUTTONS (Optional) ---------------- */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#stickman-wrapper img[data-category="shoe_L"] {
-  transform: rotate(-5deg);
+button:hover {
+    background-color: #45a049;
 }
 
-#stickman-wrapper img[data-category="shoe_R"] {
-  transform: rotate(5deg);
+/* ---------------- LINKS ---------------- */
+a {
+    color: #333;
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
