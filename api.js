@@ -4,7 +4,7 @@ const rightColumn = document.getElementById('right-column');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// ---------------- SNAP POSITIONS, ROTATIONS & Z-INDEX ----------------
+// ---------------- SNAP POSITIONS, ROTATIONS, Z-INDEX & SHADOWS ----------------
 const snapPositions = {
   eyes:      { top: 90, left: 145, width: 60, rotate: 0, z: 5, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
   glasses:   { top: 85, left: 135, width: 80, rotate: -2, z: 6, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
@@ -49,17 +49,24 @@ function addItem(src, category) {
   img.dataset.category = category;
   img.style.position = 'absolute';
 
-  // Snap, rotation, z-index, shadow for new images
-  let snap;
-  if (src.includes('catface.jpg')) snap = { top: 75, left: 130, width: 90, rotate: -5, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
-  else if (src.includes('roundface.jpg')) snap = { top: 70, left: 125, width: 100, rotate: 3, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
-  else if (src.includes('redhat.jpg')) snap = { top: 15, left: 120, width: 110, rotate: 8, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' };
-  else if (src.includes('mansuite.jpg')) snap = { top: 150, left: 105, width: 120, rotate: -2, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' };
-  else snap = snapPositions[category];
+  const stickman = document.getElementById('stickman');
 
-  // Apply position, rotation, z-index, shadow
-  img.style.top = `${snap.top}px`;
-  img.style.left = `${snap.left}px`;
+  // ---------------- PERFECT SNAP POSITIONS ----------------
+  let snap;
+
+  if (src.includes('catface.jpg')) {
+    snap = { top: 80, left: 135, width: 90, rotate: -3, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
+  } else if (src.includes('roundface.jpg')) {
+    snap = { top: 75, left: 130, width: 100, rotate: 2, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' };
+  } else if (src.includes('redhat.jpg')) {
+    snap = { top: 10, left: 120, width: 110, rotate: 5, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' };
+  } else if (src.includes('mansuite.jpg')) {
+    snap = { top: 150, left: 105, width: 120, rotate: -2, z: 4, shadow: '0 2px 5px rgba(0,0,0,0.2)' };
+  } else snap = snapPositions[category];
+
+  // ---------------- POSITION RELATIVE TO STICKMAN ----------------
+  img.style.top = `${stickman.offsetTop + snap.top}px`;
+  img.style.left = `${stickman.offsetLeft + snap.left}px`;
   img.style.width = `${snap.width}px`;
   img.style.zIndex = snap.z;
   img.style.transform = `rotate(${snap.rotate}deg)`;
@@ -99,3 +106,7 @@ function clearCanvas() {
     if (img.id !== 'stickman' && img.id !== 'logo') img.remove();
   });
 }
+
+
+
+ 
