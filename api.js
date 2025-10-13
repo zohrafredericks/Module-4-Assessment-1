@@ -1,3 +1,4 @@
+
 const draggables = document.querySelectorAll('.draggable');
 const stickmanWrapper = document.getElementById('stickman-wrapper');
 const randomBtn = document.getElementById('randomBtn');
@@ -5,16 +6,26 @@ const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
 const snapPositions = {
-  // HATS: move up 4cm (~151px)
-  hats: {
-    top: -151,      // moved up 4cm
-    left: 140,      // roughly centered horizontally
-    width: 120,     // width of hat
+  // HATS (moved down 2cm)
+  redhat: {
+    top: 0,          // 2cm down from previous
+    left: 140,
+    width: 120,
     rotate: 0,
     z: 10,
     shadow: '0 4px 8px rgba(0,0,0,0.4)'
   },
-  eyes:      { top: 75, left: 60, width: 50, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  hat_02: {
+    top: 0,          // 2cm down from previous
+    left: 138,
+    width: 115,
+    rotate: 0,
+    z: 10,
+    shadow: '0 4px 8px rgba(0,0,0,0.4)'
+  },
+
+  // OTHER ACCESSORIES
+  eyes:      { top: 45, left: 140, width: 40, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
   glasses:   { top: 70, left: 55, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
   shirts:    { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
   pants:     { top: 270, left: 55, width: 130, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
@@ -23,7 +34,7 @@ const snapPositions = {
   faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
-// ---------------- DRAG & DROP FOR ZONE ----------------
+// ---------------- DRAG & DROP ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -66,13 +77,15 @@ function addItem(src, category) {
 
 // ---------------- POSITION ITEM ----------------
 function positionItem(img, snap) {
-  img.style.width = `${snap.width}px`;
-  img.style.height = 'auto';
-  img.style.top = `${snap.top}px`;
-  img.style.left = `${snap.left}px`;
-  img.style.transform = `rotate(${snap.rotate}deg) translateX(-50%)`;
-  img.style.zIndex = snap.z;
-  img.style.boxShadow = snap.shadow;
+  img.onload = () => {
+    img.style.width = `${snap.width}px`;
+    img.style.height = 'auto';
+    img.style.top = `${snap.top}px`;
+    img.style.left = `${snap.left}px`;
+    img.style.transform = `translateX(-50%) rotate(${snap.rotate}deg)`;
+    img.style.zIndex = snap.z;
+    img.style.boxShadow = snap.shadow;
+  };
 }
 
 // ---------------- RANDOM OUTFIT ----------------
