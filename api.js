@@ -1,37 +1,17 @@
-
 const draggables = document.querySelectorAll('.draggable');
 const stickmanWrapper = document.getElementById('stickman-wrapper');
-const randomBtn = document.getElementById('randomBtn');
-const clearBtn = document.getElementById('clearBtn');
 
-// ---------------- SNAP POSITIONS ----------------
-const snapPositions = {
-  // HATS (moved down 2cm)
-  redhat: {
-    top: 0,          // 2cm down from previous
-    left: 140,
-    width: 120,
-    rotate: 0,
-    z: 10,
-    shadow: '0 4px 8px rgba(0,0,0,0.4)'
-  },
-  hat_02: {
-    top: 0,          // 2cm down from previous
-    left: 138,
-    width: 115,
-    rotate: 0,
-    z: 10,
-    shadow: '0 4px 8px rgba(0,0,0,0.4)'
-  },
-
-  // OTHER ACCESSORIES
-  eyes:      { top: 45, left: 140, width: 40, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
-  glasses:   { top: 70, left: 55, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
-  shirts:    { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  pants:     { top: 270, left: 55, width: 130, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
-  shoe_L:    { top: 370, left: 55, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  shoe_R:    { top: 370, left: 140, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
+// ---------------- ZONES ----------------
+const zones = {
+  hats: document.getElementById('hat-zone'),
+  eyes: document.getElementById('head-zone'),
+  glasses: document.getElementById('nose-zone'),
+  faces: document.getElementById('nose-zone'),
+  shirts: document.getElementById('torso-zone'),
+  mansuite: document.getElementById('torso-zone'),
+  pants: document.getElementById('legs-zone'),
+  shoe_L: document.getElementById('left-foot'),
+  shoe_R: document.getElementById('right-foot')
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -49,18 +29,11 @@ stickmanWrapper.addEventListener('drop', e => {
   const src = e.dataTransfer.getData('text/plain');
   const category = e.dataTransfer.getData('category');
 
-  // Determine shoe side automatically
-  let finalCategory = category;
-  if (category === 'shoes') {
-    finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
-  }
-
-  addItem(src, finalCategory);
+  addItem(src, category);
 });
 
 // ---------------- ADD ITEM ----------------
 function addItem(src, category) {
-  // Remove existing item in same category
   const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -68,36 +41,47 @@ function addItem(src, category) {
   img.src = src;
   img.dataset.category = category;
   img.style.position = 'absolute';
-  img.draggable = false;
+  img.style.pointerEvents = 'none';
 
-  const snap = snapPositions[category] || snapPositions.faces;
-  positionItem(img, snap);
+  const zone = zones[category];
+  if (zone) {
+    const rect = zone.getBoundingClientRect();
+    const wrapperRect = stickmanWrapper.getBoundingClientRect();
+
+    img.style.top = `${rect.top - wrapperRect.top}px`;
+    img.style.left = `${rect.left - wrapperRect.left}px`;
+    img.style.width = `${rect.width}px`;
+    img.style.height = `${rect.height}px`;
+  }
+
+  // Optional: add z-index by category
+  const zIndexMap = {
+    hats: 10,
+    glasses: 7,
+    eyes: 6,
+    faces: 6,
+    shirts: 5,
+    mansuite: 5,
+    pants: 4,
+    shoe_L: 3,
+    shoe_R: 3
+  };
+  img.style.zIndex = zIndexMap[category] || 1;
+
   stickmanWrapper.appendChild(img);
 }
 
-// ---------------- POSITION ITEM ----------------
-function positionItem(img, snap) {
-  img.onload = () => {
-    img.style.width = `${snap.width}px`;
-    img.style.height = 'auto';
-    img.style.top = `${snap.top}px`;
-    img.style.left = `${snap.left}px`;
-    img.style.transform = `translateX(-50%) rotate(${snap.rotate}deg)`;
-    img.style.zIndex = snap.z;
-    img.style.boxShadow = snap.shadow;
-  };
-}
-
 // ---------------- RANDOM OUTFIT ----------------
+const randomBtn = document.getElementById('randomBtn');
 if (randomBtn) {
   randomBtn.addEventListener('click', () => {
     clearCanvas();
-
     const categories = {
       eyes: ['images/eyes_01.png','images/eyes_03.png'],
       glasses: ['images/glasses_01.png','images/glasses_03.png'],
-      hats: ['images/hat_02.png','images/redhat.jpg'],
+      hats: ['images/redhat.jpg','images/hat_02.png'],
       shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png','images/mansuite.jpg'],
+      mansuite: ['images/mansuite.jpg'],
       pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
       shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
       shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png'],
@@ -113,6 +97,7 @@ if (randomBtn) {
 }
 
 // ---------------- CLEAR CANVAS ----------------
+const clearBtn = document.getElementById('clearBtn');
 if (clearBtn) {
   clearBtn.addEventListener('click', clearCanvas);
 }
@@ -121,4 +106,5 @@ function clearCanvas() {
   const images = stickmanWrapper.querySelectorAll('img[data-category]');
   images.forEach(img => img.remove());
 }
+
 
