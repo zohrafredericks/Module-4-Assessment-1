@@ -15,7 +15,7 @@ const snapPositions = {
   faces:     { top: 65 * 280 / 1123, left: 55 * 280 / 1123, width: 75 * 280 / 1123, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
-// ---------------- DRAG & DROP FOR ZONE ----------------
+// ---------------- DRAG & DROP ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -29,14 +29,7 @@ stickmanWrapper.addEventListener('drop', e => {
   e.preventDefault();
   const src = e.dataTransfer.getData('text/plain');
   const category = e.dataTransfer.getData('category');
-
-  // Determine shoe side automatically
-  let finalCategory = category;
-  if (category === 'shoes') {
-    finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
-  }
-
-  addItem(src, finalCategory);
+  addItem(src, category);
 });
 
 // ---------------- ADD ITEM ----------------
@@ -56,10 +49,10 @@ function addItem(src, category) {
   stickmanWrapper.appendChild(img);
 }
 
-// ---------------- POSITION ITEM (WITH ASPECT RATIO) ----------------
+// ---------------- POSITION ITEM ----------------
 function positionItem(img, snap) {
   const stickmanWidth = stickmanWrapper.clientWidth;
-  const scaleFactor = stickmanWidth / 280; // original stickman width now 280
+  const scaleFactor = stickmanWidth / 280;
 
   const tempImg = new Image();
   tempImg.src = img.src;
@@ -67,6 +60,10 @@ function positionItem(img, snap) {
     const aspect = tempImg.width / tempImg.height;
     let newWidth = snap.width * scaleFactor;
     let newHeight = newWidth / aspect;
+
+    // Optional: cap height so it doesn't exceed stickman wrapper
+    const maxHeight = stickmanWrapper.clientHeight * 0.5;
+    if (newHeight > maxHeight) newHeight = maxHeight;
 
     img.style.width = `${newWidth}px`;
     img.style.height = `${newHeight}px`;
@@ -120,4 +117,5 @@ window.addEventListener('resize', () => {
     if (snap) positionItem(img, snap);
   });
 });
+
 
