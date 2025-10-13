@@ -9,6 +9,30 @@ body {
     background-repeat: no-repeat;
 }
 
+/* ---------------- HEADER ---------------- */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* title left, logo right */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.header-container h1 {
+    margin: 0;
+}
+
+#logo {
+    width: 120px;    /* adjust as needed */
+    height: auto;
+}
+
+/* ---------------- PARAGRAPHS ---------------- */
+p {
+    text-align: center;
+    line-height: 1.5;
+    margin: 5px 20px;
+}
+
 /* ---------------- MAIN CONTAINER ---------------- */
 .main-container {
     display: flex;
@@ -21,10 +45,12 @@ body {
 /* ---------------- LEFT GALLERY ---------------- */
 .left-gallery {
     display: flex;
-    flex-wrap: wrap;      /* wrap images in multiple rows */
-    width: 220px;         /* fixed width for gallery */
-    gap: 10px;            /* space between images */
+    flex-wrap: wrap;       /* allow multiple rows */
+    width: 720px;          /* wider gallery to fit more images in one row */
+    max-height: 100vh;     /* do not exceed screen height */
+    gap: 10px;             /* spacing between images */
     justify-content: flex-start;
+    overflow: hidden;      /* no vertical scroll */
 }
 
 /* Gallery images */
@@ -78,18 +104,6 @@ button:hover {
     background-color: #45a049;
 }
 
-/* ---------------- HEADINGS & PARAGRAPHS ---------------- */
-h1, h2, h3 {
-    text-align: center;
-    margin: 10px 0;
-}
-
-p {
-    text-align: center;
-    line-height: 1.5;
-    margin: 5px 20px;
-}
-
 /* ---------------- LINKS ---------------- */
 a {
     color: #333;
@@ -99,6 +113,5 @@ a {
 a:hover {
     text-decoration: underline;
 }
-
 
 
