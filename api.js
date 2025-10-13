@@ -4,17 +4,24 @@ const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
 // ---------------- SNAP POSITIONS ----------------
+// 2 cm ≈ 75.6 px (for vertical adjustment)
 const snapPositions = {
-  redhat: { top: 10, left: 140, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
-  hat_02: { top: 10, left: 138, width: 115, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
-  eyes: { top: 75, left: 140, width: 40, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
-  glasses: { top: 70, left: 140, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
-  faces: { top: 65, left: 140, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' },
-  shirts: { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  mansuite: { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  pants: { top: 270, left: 55, width: 130, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
-  shoe_L: { top: 370, left: 55, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  shoe_R: { top: 370, left: 140, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' }
+  redhat: {
+    top: -77 - 75.6,  // moved 2cm up
+    left: 140,
+    width: 120,
+    rotate: 0,
+    z: 10,
+    shadow: '0 4px 8px rgba(0,0,0,0.4)'
+  },
+  hat_02: {
+    top: -77 - 75.6,  // moved 2cm up
+    left: 138,
+    width: 115,
+    rotate: 0,
+    z: 10,
+    shadow: '0 4px 8px rgba(0,0,0,0.4)'
+  }
 };
 
 // ---------------- DRAG & DROP ----------------
@@ -36,6 +43,7 @@ stickmanWrapper.addEventListener('drop', e => {
 
 // ---------------- ADD ITEM ----------------
 function addItem(src, category) {
+  // Remove existing item in same category
   const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -45,29 +53,18 @@ function addItem(src, category) {
   img.style.position = 'absolute';
   img.draggable = false;
 
-  const snap = snapPositions[category] || snapPositions.faces;
+  const snap = snapPositions[category] || { top: 0, left: 0, width: 100, rotate: 0, z: 5, shadow: 'none' };
   positionItem(img, snap);
+
   stickmanWrapper.appendChild(img);
 }
 
 // ---------------- POSITION ITEM ----------------
 function positionItem(img, snap) {
-  // 1 cm ≈ 37.8px
-  const cmToPx = 37.8;
-
-  let top = snap.top;
-  let left = snap.left;
-
-  // Hats: move 2 cm up and 2 cm right
-  if (img.dataset.category === 'redhat' || img.dataset.category === 'hat_02') {
-    top -= 2 * cmToPx;    // 2cm up
-    left += 2 * cmToPx;   // 2cm right
-  }
-
+  img.style.top = `${snap.top}px`;
+  img.style.left = `${snap.left}px`;
   img.style.width = `${snap.width}px`;
-  img.style.height = 'auto';
-  img.style.top = `${top}px`;
-  img.style.left = `${left}px`;
+  img.style.height = 'auto';  // keep natural aspect ratio
   img.style.transform = `rotate(${snap.rotate}deg) translateX(-50%)`;
   img.style.zIndex = snap.z;
   img.style.boxShadow = snap.shadow;
@@ -80,16 +77,8 @@ if (randomBtn) {
     const categories = {
       redhat: ['images/redhat.jpg'],
       hat_02: ['images/hat_02.png'],
-      eyes: ['images/eyes_01.png','images/eyes_03.png'],
-      glasses: ['images/glasses_01.png','images/glasses_03.png'],
-      faces: ['images/catface.jpg','images/roundface.jpg'],
-      shirts: ['images/shirt_01.png','images/shirt_02.png','images/shirt_03.png','images/shirt_04.png','images/shirt_05.png'],
-      mansuite: ['images/mansuite.jpg'],
-      pants: ['images/pants_01.png','images/pants_02.png','images/pants_03.png','images/pants_04.png','images/pants_05.png'],
-      shoe_L: ['images/shoe_01_L.png','images/shoe_02_L.png'],
-      shoe_R: ['images/shoe_01_R.png','images/shoe_02_R.png']
+      // Add other categories when ready
     };
-
     for (const cat in categories) {
       const files = categories[cat];
       const file = files[Math.floor(Math.random() * files.length)];
@@ -98,7 +87,7 @@ if (randomBtn) {
   });
 }
 
-// ---------------- CLEAR CANVAS ----------------
+// ---------------- CLEAR ----------------
 if (clearBtn) {
   clearBtn.addEventListener('click', clearCanvas);
 }
@@ -109,6 +98,3 @@ function clearCanvas() {
 }
 
 
-
-
- 
