@@ -23,18 +23,19 @@ body {
     display: flex;
     flex-wrap: wrap;      /* wrap images in multiple rows */
     width: 220px;         /* fixed width for gallery */
-    gap: 10px;
+    gap: 10px;            /* space between images */
     justify-content: flex-start;
 }
 
-/* Accessory images in gallery */
+/* Gallery images */
+.left-gallery img,
 .accessory-image {
-    width: 100px;           /* updated size */
-    height: 100px;          /* updated size */
-    object-fit: contain;
-    position: relative;     /* relative for gallery */
-    cursor: move;
-    margin: 5px;            /* spacing between images */
+    width: 100px;          /* updated size */
+    height: 100px;         /* updated size */
+    object-fit: contain;   /* preserve aspect ratio */
+    margin: 5px;           /* spacing between images */
+    cursor: grab;
+    position: relative;
 }
 
 /* Draggable cursor effect */
@@ -98,10 +99,6 @@ a {
 a:hover {
     text-decoration: underline;
 }
-
- 
-
- 
 
 
 
