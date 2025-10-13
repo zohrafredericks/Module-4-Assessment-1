@@ -22,7 +22,7 @@ body {
 }
 
 #logo {
-    width: 120px;    /* adjust as needed */
+    width: 120px;
     height: auto;
 }
 
@@ -36,7 +36,7 @@ p {
 /* ---------------- MAIN CONTAINER ---------------- */
 .main-container {
     display: flex;
-    justify-content: flex-start; /* gallery on left, stickman on right */
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 20px;
     padding: 20px;
@@ -45,21 +45,21 @@ p {
 /* ---------------- LEFT GALLERY ---------------- */
 .left-gallery {
     display: flex;
-    flex-wrap: wrap;       /* allow multiple rows */
-    width: 720px;          /* wider gallery to fit more images in one row */
-    max-height: 100vh;     /* do not exceed screen height */
-    gap: 10px;             /* spacing between images */
+    flex-wrap: wrap;
+    width: 720px;
+    max-height: 100vh;
+    gap: 10px;
     justify-content: flex-start;
-    overflow: hidden;      /* no vertical scroll */
+    overflow: hidden;
 }
 
 /* Gallery images */
 .left-gallery img,
 .accessory-image {
-    width: 100px;          /* updated size */
-    height: 100px;         /* updated size */
-    object-fit: contain;   /* preserve aspect ratio */
-    margin: 5px;           /* spacing between images */
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 5px;
     cursor: grab;
     position: relative;
 }
@@ -71,8 +71,8 @@ p {
 /* ---------------- STICKMAN ---------------- */
 #stickman-wrapper {
     position: relative;
-    width: 349px;       /* new stickman width */
-    height: 700px;      /* new stickman height */
+    width: 280px;       /* scaled down */
+    height: 562px;      /* proportional height */
     margin: 20px auto;
 }
 
@@ -85,64 +85,64 @@ p {
 /* ---------------- STICKMAN ZONES ---------------- */
 #hat-zone {
     position: absolute;
-    top: 40px;       /* adjust to forehead */
-    left: 120px;     /* center over head */
-    width: 110px;    /* hat width */
-    height: 80px;    /* hat height */
-    pointer-events: none; /* allow drag-drop to pass through */
+    top: 32px;
+    left: 96px;
+    width: 88px;
+    height: 64px;
+    pointer-events: none;
 }
 
 #head-zone {
     position: absolute;
-    top: 90px;       /* eyes placement */
-    left: 130px;
-    width: 90px;
-    height: 40px;
+    top: 72px;
+    left: 104px;
+    width: 72px;
+    height: 32px;
     pointer-events: none;
 }
 
 #nose-zone {
     position: absolute;
-    top: 130px;      /* glasses / face placement */
-    left: 140px;
-    width: 70px;
-    height: 40px;
+    top: 104px;
+    left: 112px;
+    width: 56px;
+    height: 32px;
     pointer-events: none;
 }
 
 #torso-zone {
     position: absolute;
-    top: 180px;      /* shirts / mansuite placement */
-    left: 110px;
-    width: 130px;
-    height: 150px;
+    top: 144px;
+    left: 88px;
+    width: 104px;
+    height: 120px;
     pointer-events: none;
 }
 
 #legs-zone {
     position: absolute;
-    top: 330px;      /* pants placement */
-    left: 115px;
-    width: 120px;
-    height: 200px;
+    top: 264px;
+    left: 92px;
+    width: 96px;
+    height: 160px;
     pointer-events: none;
 }
 
 #left-foot {
     position: absolute;
-    top: 530px;      /* left shoe */
-    left: 120px;
-    width: 50px;
-    height: 50px;
+    top: 424px;
+    left: 96px;
+    width: 40px;
+    height: 40px;
     pointer-events: none;
 }
 
 #right-foot {
     position: absolute;
-    top: 530px;      /* right shoe */
-    left: 180px;
-    width: 50px;
-    height: 50px;
+    top: 424px;
+    left: 144px;
+    width: 40px;
+    height: 40px;
     pointer-events: none;
 }
 
