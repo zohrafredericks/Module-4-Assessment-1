@@ -19,20 +19,34 @@ body {
 
 /* ---------------- LEFT GALLERY ---------------- */
 .left-gallery {
-    width: 200px; /* fixed width for left panel */
+    width: 220px;           /* fixed width for left panel */
+    padding: 10px;
+    max-height: 90vh;       /* prevent it from being taller than screen */
+    overflow-y: auto;       /* scroll vertically if many images */
 }
 
 .image-gallery {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+    display: flex;
+    flex-wrap: wrap;        /* allows images to wrap naturally */
+    gap: 10px;              /* space between images */
+    justify-content: flex-start;  /* align images to left */
 }
 
-/* Hover effect */
-.image-gallery img:hover {
+/* Gallery images (faces, hats, shirts, pants, shoes, accessories) */
+.left-gallery .image-gallery img {
+    width: 80px;            /* uniform size for gallery display */
+    height: 80px;
+    object-fit: cover;      /* fills the square nicely */
+    cursor: grab;           /* draggable cursor */
+    position: static;       /* prevent stacking */
+    border-radius: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for gallery images */
+.left-gallery .image-gallery img:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* ---------------- STICKMAN ---------------- */
@@ -48,17 +62,6 @@ body {
     height: 100%;
     object-fit: contain;
 }
-
-/* ---------------- ACCESSORIES ---------------- */
-.accessory-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    position: absolute;
-    cursor: grab;
-}
-
-.draggable.dragging { opacity: 0.7; }
 
 /* ---------------- BUTTONS ---------------- */
 .button-container {
@@ -78,6 +81,28 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover { background-color: #45a049; }
+button:hover { 
+    background-color: #45a049; 
+}
 
+/* ---------------- OPTIONAL HEADINGS & PARAGRAPHS ---------------- */
+h1, h2, h3 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+p {
+    text-align: center;
+    line-height: 1.5;
+    margin: 5px 20px;
+}
+
+/* ---------------- ACCESSORIES DROPPED ON STICKMAN ---------------- */
+.accessory-image {
+    position: absolute;    /* absolute only when added to stickman */
+    cursor: move;
+}
+
+.draggable { cursor: grab; }
+.dragging { opacity: 0.7; }
 
