@@ -3,19 +3,19 @@ const stickmanWrapper = document.getElementById('stickman-wrapper');
 const randomBtn = document.getElementById('randomBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// ---------------- SNAP POSITIONS ----------------
+// ---------------- SNAP POSITIONS (scaled for 280px stickman width) ----------------
 const snapPositions = {
-  eyes:      { top: 75, left: 60, width: 50, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
-  glasses:   { top: 70, left: 55, width: 70, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
-  hats:      { top: 10, left: 45, width: 120, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
-  shirts:    { top: 150, left: 55, width: 207, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
-  pants:     { top: 270, left: 55, width: 130, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
-  shoe_L:    { top: 370, left: 55, width: 45, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  shoe_R:    { top: 370, left: 140, width: 45, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
-  faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
+  eyes:      { top: 75 * 280 / 1123, left: 60 * 280 / 1123, width: 50 * 280 / 1123, rotate: 0, z: 6, shadow: '0 2px 4px rgba(0,0,0,0.3)' },
+  glasses:   { top: 70 * 280 / 1123, left: 55 * 280 / 1123, width: 70 * 280 / 1123, rotate: -2, z: 7, shadow: '0 2px 6px rgba(0,0,0,0.3)' },
+  hats:      { top: 10 * 280 / 1123, left: 45 * 280 / 1123, width: 120 * 280 / 1123, rotate: 0, z: 10, shadow: '0 4px 8px rgba(0,0,0,0.4)' },
+  shirts:    { top: 150 * 280 / 1123, left: 55 * 280 / 1123, width: 207 * 280 / 1123, rotate: 0, z: 5, shadow: '0 2px 5px rgba(0,0,0,0.2)' },
+  pants:     { top: 270 * 280 / 1123, left: 55 * 280 / 1123, width: 130 * 280 / 1123, rotate: 0, z: 4, shadow: '0 2px 4px rgba(0,0,0,0.2)' },
+  shoe_L:    { top: 370 * 280 / 1123, left: 55 * 280 / 1123, width: 45 * 280 / 1123, rotate: -5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  shoe_R:    { top: 370 * 280 / 1123, left: 140 * 280 / 1123, width: 45 * 280 / 1123, rotate: 5, z: 3, shadow: '0 1px 3px rgba(0,0,0,0.2)' },
+  faces:     { top: 65 * 280 / 1123, left: 55 * 280 / 1123, width: 75 * 280 / 1123, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
-// ---------------- DRAG & DROP ----------------
+// ---------------- DRAG & DROP FOR ZONE ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -24,19 +24,24 @@ draggables.forEach(img => {
 });
 
 stickmanWrapper.addEventListener('dragover', e => e.preventDefault());
+
 stickmanWrapper.addEventListener('drop', e => {
   e.preventDefault();
   const src = e.dataTransfer.getData('text/plain');
   const category = e.dataTransfer.getData('category');
 
+  // Determine shoe side automatically
   let finalCategory = category;
-  if (category === 'shoes') finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
+  if (category === 'shoes') {
+    finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
+  }
 
   addItem(src, finalCategory);
 });
 
 // ---------------- ADD ITEM ----------------
 function addItem(src, category) {
+  // Remove existing item in same category
   const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -51,17 +56,17 @@ function addItem(src, category) {
   stickmanWrapper.appendChild(img);
 }
 
-// ---------------- POSITION ITEM ----------------
+// ---------------- POSITION ITEM (WITH ASPECT RATIO) ----------------
 function positionItem(img, snap) {
   const stickmanWidth = stickmanWrapper.clientWidth;
-  const scaleFactor = stickmanWidth / 1123; // new width 280px / original 1123px
+  const scaleFactor = stickmanWidth / 280; // original stickman width now 280
 
   const tempImg = new Image();
   tempImg.src = img.src;
   tempImg.onload = () => {
     const aspect = tempImg.width / tempImg.height;
-    const newWidth = snap.width * scaleFactor;
-    const newHeight = newWidth / aspect;
+    let newWidth = snap.width * scaleFactor;
+    let newHeight = newWidth / aspect;
 
     img.style.width = `${newWidth}px`;
     img.style.height = `${newHeight}px`;
