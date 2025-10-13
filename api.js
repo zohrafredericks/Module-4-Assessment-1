@@ -48,13 +48,14 @@ function addItem(src, category) {
     const rect = zone.getBoundingClientRect();
     const wrapperRect = stickmanWrapper.getBoundingClientRect();
 
+    // Snap image to zone
     img.style.top = `${rect.top - wrapperRect.top}px`;
     img.style.left = `${rect.left - wrapperRect.left}px`;
     img.style.width = `${rect.width}px`;
     img.style.height = `${rect.height}px`;
   }
 
-  // Optional: add z-index by category
+  // Z-index mapping
   const zIndexMap = {
     hats: 10,
     glasses: 7,
@@ -106,5 +107,4 @@ function clearCanvas() {
   const images = stickmanWrapper.querySelectorAll('img[data-category]');
   images.forEach(img => img.remove());
 }
-
 
