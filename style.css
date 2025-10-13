@@ -82,6 +82,70 @@ p {
     object-fit: contain;
 }
 
+/* ---------------- STICKMAN ZONES ---------------- */
+#hat-zone {
+    position: absolute;
+    top: 40px;       /* adjust to forehead */
+    left: 120px;     /* center over head */
+    width: 110px;    /* hat width */
+    height: 80px;    /* hat height */
+    pointer-events: none; /* allow drag-drop to pass through */
+}
+
+#head-zone {
+    position: absolute;
+    top: 90px;       /* eyes placement */
+    left: 130px;
+    width: 90px;
+    height: 40px;
+    pointer-events: none;
+}
+
+#nose-zone {
+    position: absolute;
+    top: 130px;      /* glasses / face placement */
+    left: 140px;
+    width: 70px;
+    height: 40px;
+    pointer-events: none;
+}
+
+#torso-zone {
+    position: absolute;
+    top: 180px;      /* shirts / mansuite placement */
+    left: 110px;
+    width: 130px;
+    height: 150px;
+    pointer-events: none;
+}
+
+#legs-zone {
+    position: absolute;
+    top: 330px;      /* pants placement */
+    left: 115px;
+    width: 120px;
+    height: 200px;
+    pointer-events: none;
+}
+
+#left-foot {
+    position: absolute;
+    top: 530px;      /* left shoe */
+    left: 120px;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+}
+
+#right-foot {
+    position: absolute;
+    top: 530px;      /* right shoe */
+    left: 180px;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+}
+
 /* ---------------- BUTTONS ---------------- */
 .button-container {
     text-align: center;
