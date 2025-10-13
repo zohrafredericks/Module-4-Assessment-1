@@ -71,8 +71,8 @@ p {
 /* ---------------- STICKMAN ---------------- */
 #stickman-wrapper {
     position: relative;
-    width: 280px;       /* updated stickman width */
-    height: 400px;      /* updated stickman height */
+    width: 349px;       /* new stickman width */
+    height: 700px;      /* new stickman height */
     margin: 20px auto;
 }
 
@@ -113,5 +113,4 @@ a {
 a:hover {
     text-decoration: underline;
 }
-
 
