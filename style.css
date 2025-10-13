@@ -3,15 +3,16 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: #333;
-    background-image: url('images/background01.png');
+    background-image: url('images/background01.png'); /* full-page background */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* ---------------- MAIN LAYOUT ---------------- */
+/* ---------------- MAIN CONTAINER ---------------- */
 .main-container {
     display: flex;
+    justify-content: flex-start; /* gallery on left, stickman on right */
     align-items: flex-start;
     gap: 20px;
     padding: 20px;
@@ -19,40 +20,33 @@ body {
 
 /* ---------------- LEFT GALLERY ---------------- */
 .left-gallery {
-    width: 220px;
-    padding: 10px;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.image-gallery {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;      /* wrap images in multiple rows */
+    width: 220px;         /* fixed width for gallery */
     gap: 10px;
     justify-content: flex-start;
 }
 
-.left-gallery .image-gallery img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    cursor: grab;
-    position: static; /* ensure no stacking */
-    border-radius: 5px;
-    transition: transform 0.2s, box-shadow 0.2s;
+/* Accessory images in gallery */
+.accessory-image {
+    width: 100px;           /* updated size */
+    height: 100px;          /* updated size */
+    object-fit: contain;
+    position: relative;     /* relative for gallery */
+    cursor: move;
+    margin: 5px;            /* spacing between images */
 }
 
-.left-gallery .image-gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
+/* Draggable cursor effect */
+.draggable { cursor: grab; }
+.dragging { opacity: 0.7; }
 
 /* ---------------- STICKMAN ---------------- */
 #stickman-wrapper {
-    width: 280px;
-    height: 400px;
     position: relative;
-    margin: 0 auto;
+    width: 280px;       /* updated stickman width */
+    height: 400px;      /* updated stickman height */
+    margin: 20px auto;
 }
 
 #stickman {
@@ -61,16 +55,10 @@ body {
     object-fit: contain;
 }
 
-/* ---------------- DROPPED ACCESSORIES ---------------- */
-#stickman-wrapper img[data-category] {
-    position: absolute;
-    cursor: move;
-}
-
 /* ---------------- BUTTONS ---------------- */
 .button-container {
     text-align: center;
-    margin: 20px 0;
+    margin: 10px;
 }
 
 button {
@@ -85,11 +73,11 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover { 
-    background-color: #45a049; 
+button:hover {
+    background-color: #45a049;
 }
 
-/* ---------------- OPTIONAL HEADINGS & PARAGRAPHS ---------------- */
+/* ---------------- HEADINGS & PARAGRAPHS ---------------- */
 h1, h2, h3 {
     text-align: center;
     margin: 10px 0;
@@ -100,6 +88,20 @@ p {
     line-height: 1.5;
     margin: 5px 20px;
 }
+
+/* ---------------- LINKS ---------------- */
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ 
+
+ 
 
 
 
