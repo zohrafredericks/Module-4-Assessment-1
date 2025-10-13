@@ -3,64 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stickman Dress-Up Game</title>
+<title>Funny People Dress-Up Game</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="stickman-wrapper">
-    <!-- Zones -->
-    <div id="hat-zone"></div>
-    <div id="head-zone">
-        <div id="nose-zone"></div>
-    </div>
-    <div id="torso-zone"></div>
-    <div id="legs-zone"></div>
-    <div id="feet-zone">
-        <div id="left-foot"></div>
-        <div id="right-foot"></div>
-    </div>
+<div class="main-container">
+  <h1>Funny People Dress-Up Game</h1>
+  <p>Drag items from the gallery onto the stickman or click “Random Outfit” to create a fun look!</p>
 
-    <!-- Stickman image -->
-    <img src="images/stickman.jpg" id="stickman" alt="Stickman">
-</div>
+  <!-- Stickman area -->
+  <div id="stickman-wrapper">
+      <!-- Zones -->
+      <div id="hat-zone"></div>
+      <div id="head-zone">
+          <div id="nose-zone"></div>
+      </div>
+      <div id="torso-zone"></div>
+      <div id="legs-zone"></div>
+      <div id="feet-zone">
+          <div id="left-foot"></div>
+          <div id="right-foot"></div>
+      </div>
 
-<!-- Image gallery -->
-<div class="image-gallery">
-    <!-- Faces -->
-    <img src="images/roundface.jpg" class="draggable face-image" alt="Round Face" draggable="true">
-    <img src="images/catface.jpg" class="draggable accessory-image" alt="Cat Nose" draggable="true" data-zone="nose" data-layer="1">
+      <!-- Stickman image -->
+      <img src="images/stickman.jpg" id="stickman" alt="Stickman">
+  </div>
 
-    <!-- Hats -->
-    <img src="images/redhat.jpg" class="draggable accessory-image" alt="Red Hat" draggable="true" data-zone="hat" data-layer="3">
-    <img src="images/hat_02.png" class="draggable accessory-image" alt="Hat 2" draggable="true" data-zone="hat" data-layer="3">
+  <!-- Buttons -->
+  <div class="button-container">
+      <button id="randomBtn">Random Outfit</button>
+      <button id="clearBtn">Clear</button>
+  </div>
 
-    <!-- Shirts -->
-    <img src="images/mansuite.jpg" class="draggable accessory-image" alt="Man Suite" draggable="true" data-zone="torso">
-    <img src="images/shirt_01.png" class="draggable accessory-image" alt="Shirt 1" draggable="true" data-zone="torso">
-    <img src="images/shirt_02.png" class="draggable accessory-image" alt="Shirt 2" draggable="true" data-zone="torso">
-    <img src="images/shirt_03.png" class="draggable accessory-image" alt="Shirt 3" draggable="true" data-zone="torso">
-    <img src="images/shirt_04.png" class="draggable accessory-image" alt="Shirt 4" draggable="true" data-zone="torso">
-    <img src="images/shirt_05.png" class="draggable accessory-image" alt="Shirt 5" draggable="true" data-zone="torso">
+  <!-- Image gallery -->
+  <div class="image-gallery">
 
-    <!-- Pants -->
-    <img src="images/pants_01.png" class="draggable accessory-image" alt="Pants 1" draggable="true" data-zone="legs">
-    <img src="images/pants_02.png" class="draggable accessory-image" alt="Pants 2" draggable="true" data-zone="legs">
-    <img src="images/pants_03.png" class="draggable accessory-image" alt="Pants 3" draggable="true" data-zone="legs">
-    <img src="images/pants_04.png" class="draggable accessory-image" alt="Pants 4" draggable="true" data-zone="legs">
-    <img src="images/pants_05.png" class="draggable accessory-image" alt="Pants 5" draggable="true" data-zone="legs">
+      <!-- Faces -->
+      <img src="images/roundface.jpg" class="draggable face-image" alt="Round Face" draggable="true" data-category="faces">
+      <img src="images/catface.jpg" class="draggable accessory-image" alt="Cat Face" draggable="true" data-category="faces">
 
-    <!-- Shoes Set 1 -->
-    <img src="images/shoe_01_L.png" class="draggable accessory-image" alt="Left Shoe 1" draggable="true" data-zone="left-foot">
-    <img src="images/shoe_01_R.png" class="draggable accessory-image" alt="Right Shoe 1" draggable="true" data-zone="right-foot">
+      <!-- Eyes & Glasses -->
+      <img src="images/eyes_01.png" class="draggable accessory-image" alt="Eyes 1" draggable="true" data-category="eyes">
+      <img src="images/eyes_03.png" class="draggable accessory-image" alt="Eyes 2" draggable="true" data-category="eyes">
+      <img src="images/glasses_01.png" class="draggable accessory-image" alt="Glasses 1" draggable="true" data-category="glasses">
+      <img src="images/glasses_03.png" class="draggable accessory-image" alt="Glasses 2" draggable="true" data-category="glasses">
 
-    <!-- Shoes Set 2 -->
-    <img src="images/shoe_02_L.png" class="draggable accessory-image" alt="Left Shoe 2" draggable="true" data-zone="left-foot">
-    <img src="images/shoe_02_R.png" class="draggable accessory-image" alt="Right Shoe 2" draggable="true" data-zone="right-foot">
+      <!-- Hats -->
+      <img src="images/redhat.jpg" class="draggable accessory-image" alt="Red Hat" draggable="true" data-category="hats">
+      <img src="images/hat_02.png" class="draggable accessory-image" alt="Hat 2" draggable="true" data-category="hats">
 
-    <!-- Head accessories -->
-    <img src="images/eye.png" class="draggable accessory-image" alt="Eye" draggable="true" data-zone="head" data-layer="1">
-    <img src="images/glasses.png" class="draggable accessory-image" alt="Glasses" draggable="true" data-zone="head" data-layer="2">
+      <!-- Shirts -->
+      <img src="images/mansuite.jpg" class="draggable accessory-image" alt="Man Suite" draggable="true" data-category="shirts">
+      <img src="images/shirt_01.png" class="draggable accessory-image" alt="Shirt 1" draggable="true" data-category="shirts">
+      <img src="images/shirt_02.png" class="draggable accessory-image" alt="Shirt 2" draggable="true" data-category="shirts">
+      <img src="images/shirt_03.png" class="draggable accessory-image" alt="Shirt 3" draggable="true" data-category="shirts">
+      <img src="images/shirt_04.png" class="draggable accessory-image" alt="Shirt 4" draggable="true" data-category="shirts">
+      <img src="images/shirt_05.png" class="draggable accessory-image" alt="Shirt 5" draggable="true" data-category="shirts">
+
+      <!-- Pants -->
+      <img src="images/pants_01.png" class="draggable accessory-image" alt="Pants 1" draggable="true" data-category="pants">
+      <img src="images/pants_02.png" class="draggable accessory-image" alt="Pants 2" draggable="true" data-category="pants">
+      <img src="images/pants_03.png" class="draggable accessory-image" alt="Pants 3" draggable="true" data-category="pants">
+      <img src="images/pants_04.png" class="draggable accessory-image" alt="Pants 4" draggable="true" data-category="pants">
+      <img src="images/pants_05.png" class="draggable accessory-image" alt="Pants 5" draggable="true" data-category="pants">
+
+      <!-- Shoes Set 1 -->
+      <img src="images/shoe_01_L.png" class="draggable accessory-image" alt="Left Shoe 1" draggable="true" data-category="shoe_L">
+      <img src="images/shoe_01_R.png" class="draggable accessory-image" alt="Right Shoe 1" draggable="true" data-category="shoe_R">
+
+      <!-- Shoes Set 2 -->
+      <img src="images/shoe_02_L.png" class="draggable accessory-image" alt="Left Shoe 2" draggable="true" data-category="shoe_L">
+      <img src="images/shoe_02_R.png" class="draggable accessory-image" alt="Right Shoe 2" draggable="true" data-category="shoe_R">
+
+  </div>
 </div>
 
 <script src="script.js"></script>
