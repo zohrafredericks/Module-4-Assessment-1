@@ -1,4 +1,3 @@
-
 const draggables = document.querySelectorAll('.draggable');
 const stickmanWrapper = document.getElementById('stickman-wrapper');
 const randomBtn = document.getElementById('randomBtn');
@@ -16,7 +15,7 @@ const snapPositions = {
   faces:     { top: 65, left: 55, width: 75, rotate: 0, z: 6, shadow: '0 2px 5px rgba(0,0,0,0.3)' }
 };
 
-// ---------------- DRAG & DROP FOR ZONE ----------------
+// ---------------- DRAG & DROP ----------------
 draggables.forEach(img => {
   img.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', img.src);
@@ -25,24 +24,19 @@ draggables.forEach(img => {
 });
 
 stickmanWrapper.addEventListener('dragover', e => e.preventDefault());
-
 stickmanWrapper.addEventListener('drop', e => {
   e.preventDefault();
   const src = e.dataTransfer.getData('text/plain');
   const category = e.dataTransfer.getData('category');
 
-  // Determine shoe side automatically
   let finalCategory = category;
-  if (category === 'shoes') {
-    finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
-  }
+  if (category === 'shoes') finalCategory = src.includes('_L') ? 'shoe_L' : 'shoe_R';
 
   addItem(src, finalCategory);
 });
 
 // ---------------- ADD ITEM ----------------
 function addItem(src, category) {
-  // Remove existing item in same category
   const existing = stickmanWrapper.querySelector(`img[data-category='${category}']`);
   if (existing) existing.remove();
 
@@ -57,18 +51,17 @@ function addItem(src, category) {
   stickmanWrapper.appendChild(img);
 }
 
-// ---------------- POSITION ITEM (WITH ASPECT RATIO) ----------------
+// ---------------- POSITION ITEM ----------------
 function positionItem(img, snap) {
   const stickmanWidth = stickmanWrapper.clientWidth;
-  const scaleFactor = stickmanWidth / 1123; // original stickman width from image
+  const scaleFactor = stickmanWidth / 1123; // new width 280px / original 1123px
 
   const tempImg = new Image();
   tempImg.src = img.src;
   tempImg.onload = () => {
     const aspect = tempImg.width / tempImg.height;
-    let newWidth = snap.width * scaleFactor;
-    let newHeight = newWidth / aspect;
-    if (newHeight > snap.width * scaleFactor / aspect) newHeight = newWidth / aspect;
+    const newWidth = snap.width * scaleFactor;
+    const newHeight = newWidth / aspect;
 
     img.style.width = `${newWidth}px`;
     img.style.height = `${newHeight}px`;
@@ -122,3 +115,4 @@ window.addEventListener('resize', () => {
     if (snap) positionItem(img, snap);
   });
 });
+
