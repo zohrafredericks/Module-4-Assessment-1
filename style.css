@@ -3,26 +3,34 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: #333;
-    background-image: url('images/background01.png'); /* full-page background */
+    background-image: url('images/background01.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* ---------------- IMAGE GALLERY ---------------- */
-.image-gallery {
+/* ---------------- MAIN CONTAINER ---------------- */
+.main-container {
     display: flex;
-    flex-wrap: wrap;              
-    gap: 20px;                    
-    justify-content: center;      
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     padding: 20px;
 }
 
-/* Hover effect for gallery images */
-.image-gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
+/* ---------------- HEADINGS & TEXT ---------------- */
+h1, h2, h3 {
+    margin: 10px 0;
+    text-align: center;
+    color: #222;
+}
+
+p {
+    max-width: 600px;
+    margin: 5px auto 20px auto;
+    line-height: 1.5;
+    color: #444;
 }
 
 /* ---------------- STICKMAN ---------------- */
@@ -30,7 +38,11 @@ body {
     position: relative;
     width: 10cm;       /* stickman width */
     height: 18cm;      /* stickman height */
-    margin: 150px auto 50px auto; /* lower for hats & shoes */
+    margin: 100px auto 30px auto; /* balanced spacing */
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 #stickman {
@@ -49,6 +61,28 @@ body {
 #left-foot { position: absolute; top: 0; left: 0; width: 50%; height: 100%; }
 #right-foot { position: absolute; top: 0; right: 0; width: 50%; height: 100%; }
 
+/* ---------------- IMAGE GALLERY ---------------- */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;              
+    gap: 20px;                    
+    justify-content: center;      
+    padding: 20px;
+    max-width: 90%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Hover effect for gallery images */
+.image-gallery img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.image-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
 /* ---------------- ACCESSORIES ---------------- */
 .face-image {
     width: 200px;
@@ -58,50 +92,66 @@ body {
 }
 
 .accessory-image {
-    width: 80px;             /* initial size in gallery */
-    height: 80px;            /* initial size in gallery */
-    object-fit: contain;     /* preserves aspect ratio on drop */
+    width: 80px;            
+    height: 80px;           
+    object-fit: contain;    
     position: absolute;
     cursor: move;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, top 0.3s, left 0.3s;
 }
 
 .draggable { cursor: grab; }
 .dragging { opacity: 0.7; }
 
-/* ---------------- OPTIONAL HEADINGS & BUTTONS ---------------- */
-h1, h2, h3 {
+/* ---------------- BUTTONS ---------------- */
+.button-container {
     text-align: center;
-    margin: 10px 0;
-}
-
-p {
-    text-align: center;
-    line-height: 1.5;
-    margin: 5px 20px;
+    margin: 20px 0;
 }
 
 button {
     padding: 10px 20px;
     margin: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #4CAF50;
     color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
 }
 
+/* ---------------- LINKS ---------------- */
 a {
     color: #333;
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
+}
+
+/* ---------------- RESPONSIVE ADJUSTMENTS ---------------- */
+@media (max-width: 768px) {
+    #stickman-wrapper {
+        width: 70vw;
+        height: 120vw;
+        margin: 60px auto 30px auto;
+    }
+
+    .face-image, .accessory-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .image-gallery {
+        gap: 10px;
+        padding: 10px;
+    }
 }
 
