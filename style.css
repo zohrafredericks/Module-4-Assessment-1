@@ -16,7 +16,6 @@ body {
     height: 100vh;
     width: 100vw;
     overflow: hidden;      /* removes all scrollbars */
-    padding: 20px;         /* add overall page padding */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -25,11 +24,11 @@ body {
     flex-wrap: wrap;
     flex-basis: 40%;
     max-width: 40%;
-    gap: 15px;             /* space between images */
-    padding: 20px;         /* padding inside left column */
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;      /* no scrollbar */
     background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    overflow: visible;     /* allow images to extend if needed */
+    border-radius: 0;      /* removed borders */
 }
 
 /* Draggable images */
@@ -52,16 +51,17 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; /* start from top */
-    padding: 20px;               /* spacing inside right column */
+    padding: 10px;
+    overflow: visible;     /* allows draggables to be placed freely */
     background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    overflow: visible;           /* allow free placement if needed */
+    border-radius: 0;      /* removed borders */
 }
 
 /* Stickman */
 #stickman {
     width: 160px;
     height: 320px;
+    margin-top: 3cm;       /* moves stickman down */
     margin-bottom: 20px;
 }
 
@@ -69,7 +69,7 @@ body {
 #logo {
     width: 100px;
     height: auto;
-    margin-top: auto;  /* push logo slightly down */
+    margin-top: 1rem;      /* space below stickman */
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -77,21 +77,23 @@ body {
     body {
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         height: 100vh;
         width: 100vw;
-        padding: 10px;
     }
     #left-column, #right-column {
         flex-basis: 90%;
         max-width: 90%;
-        margin-bottom: 15px;
+        margin-bottom: 0;
     }
     #stickman {
         width: 120px;
         height: 240px;
+        margin-top: 2cm;   /* scaled down for smaller screen */
     }
     #left-column img.draggable {
         height: 80px;
     }
 }
+
+    
