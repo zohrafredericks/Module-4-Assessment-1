@@ -68,7 +68,7 @@ body {
 
 /* Specific styling for shoe images */
 #left-column img[id^="shoe_"] {
-  height: 50px;  /* Resize shoe images to fit the stickman */
+  height: 40px;  /* Resize shoe images to 40px */
   width: auto;   /* Maintain aspect ratio */
 }
 
@@ -139,5 +139,7 @@ body {
     height: 80px;
   }
 }
+
+
 
 
