@@ -1,4 +1,8 @@
 /* ---------------- BODY ---------------- */
+* {
+    box-sizing: border-box; /* padding and borders included in width/height */
+}
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -11,26 +15,27 @@ body {
     flex-direction: row;
     height: 100vh;
     width: 100vw;
-    overflow: hidden; /* removes horizontal scroll */
+    overflow-x: hidden;       /* remove horizontal scrollbar */
+    overflow-y: hidden;       /* optional: remove vertical scrollbar on body */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
+    flex: 0 0 40%;           /* takes 40% of width */
+    max-width: 40%;
     display: flex;
     flex-wrap: wrap;
-    width: 40%;           /* draggable area */
     gap: 10px;
     padding: 10px;
-    max-height: 100%;      /* fills vertical space */
-    overflow-y: auto;      /* vertical scroll only */
-    background-color: rgba(255, 255, 255, 0.6); /* optional visibility */
+    overflow-y: auto;         /* vertical scroll if many items */
+    background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
 
 /* Draggable images */
 #left-column img.draggable {
+    height: 100px;
     width: auto;
-    height: 100px;       /* scaled proportionally */
     object-fit: contain;
     cursor: grab;
     transition: transform 0.2s;
@@ -38,19 +43,20 @@ body {
 
 #left-column img.draggable:active {
     cursor: grabbing;
-    transform: scale(1.1); /* visual feedback while dragging */
+    transform: scale(1.1);
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
-    width: 60%;            /* stickman area */
+    flex: 0 0 60%;           /* takes 60% of width */
+    max-width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    overflow: visible;     /* allows items to be dragged onto stickman */
-    background-color: rgba(255, 255, 255, 0.6); /* optional visibility */
+    overflow: visible;        /* allows draggables to be placed freely */
+    background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
 
@@ -58,31 +64,34 @@ body {
 #stickman {
     width: 160px;
     height: 320px;
-    display: block;
     margin-bottom: 20px;
 }
 
-/* Logo below stickman */
+/* Logo */
 #logo {
     width: 100px;
     height: auto;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+/* ---------------- RESPONSIVE (mobile/tablet) ---------------- */
 @media (max-width: 1200px) {
     body {
         flex-direction: column;
         align-items: center;
+        justify-content: flex-start;
+        height: auto;
+        width: 100%;
     }
     #left-column, #right-column {
-        width: 90%;
+        flex: 0 0 90%;
+        max-width: 90%;
         margin-bottom: 20px;
     }
+    #stickman {
+        width: 120px;
+        height: 240px;
+    }
+    #left-column img.draggable {
+        height: 80px;
+    }
 }
-
-
-
-
-
-
-
