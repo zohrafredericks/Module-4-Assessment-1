@@ -1,5 +1,4 @@
-/* ---------------- BACKUP CODE ---------------- */
-/* Original working styles - do not change this unless necessary */
+/* ---------------- BODY ---------------- */
 * {
   box-sizing: border-box;
 }
@@ -17,7 +16,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden; /* removes all scrollbars */
-  padding: 0;
+  padding: 0; /* remove any invisible padding */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -27,17 +26,10 @@ body {
   flex-basis: 40%;
   max-width: 40%;
   gap: 10px;
-  padding: 20px;
-  overflow: visible;
-  background-color: rgba(255,255,255,0.7); /* Soft white with transparency */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  transition: transform 0.3s ease; /* Smooth hover effect */
-}
-
-/* Hover effect on left column */
-#left-column:hover {
-  transform: scale(1.05); /* Slight zoom effect */
+  padding: 10px;
+  overflow: visible; /* allow images to extend if needed */
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 0; /* removed borders */
 }
 
 /* Draggable images */
@@ -46,13 +38,11 @@ body {
   width: auto;
   cursor: grab;
   object-fit: contain;
-  border-radius: 10px; /* Rounded image borders */
-  transition: transform 0.3s ease; /* Smooth transition for drag effect */
 }
 
 #left-column img.draggable:active {
   cursor: grabbing;
-  transform: scale(1.1); /* Enlarge image when active */
+  transform: scale(1.1);
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
@@ -63,39 +53,28 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px;
-  overflow: visible;
-  background-color: rgba(255,255,255,0.7); /* Soft white with transparency */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  padding: 0; /* remove invisible padding */
+  overflow: visible; /* allow free placement */
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 0; /* removed borders */
 }
 
 /* Stickman */
 #stickman {
-  width: 180px;
-  height: 360px;
-  margin-top: 3cm;
+  width: 160px;
+  height: 320px;
+  margin-top: 3cm; /* moves stickman down */
   margin-bottom: 20px;
-  transition: transform 0.3s ease; /* Smooth effect */
-}
-
-#stickman:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
 }
 
 /* Logo */
 #logo {
-  width: 120px;
+  width: 100px;
   height: auto;
-  margin-top: 1rem;
-  transition: transform 0.3s ease; /* Smooth effect */
+  margin-top: 1rem; /* space below stickman */
 }
 
-#logo:hover {
-  transform: scale(1.1); /* Zoom logo on hover */
-}
-
-/* ---------------- RESPONSIVE DESIGN ---------------- */
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 1200px) {
   body {
     flex-direction: column;
@@ -109,13 +88,12 @@ body {
     flex-basis: 90%;
     max-width: 90%;
     margin-bottom: 0;
-    padding: 15px;
   }
 
   #stickman {
-    width: 140px;
-    height: 280px;
-    margin-top: 2cm;
+    width: 120px;
+    height: 240px;
+    margin-top: 2cm; /* scaled down for smaller screen */
   }
 
   #left-column img.draggable {
@@ -123,18 +101,3 @@ body {
   }
 }
 
-/* ---------------- BUTTON STYLES (if needed) ---------------- */
-button {
-  background-color: #4CAF50; /* Green */
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #FF9800; /* Orange */
-}
