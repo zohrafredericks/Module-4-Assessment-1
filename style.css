@@ -1,108 +1,100 @@
+/* ---------------- BODY ---------------- */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-image: url('images/background01.png'); /* full-page background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
     display: flex;
-    flex-wrap: wrap;        /* allow multiple rows */
+    flex-wrap: wrap;
+    width: 40%;           /* larger area for draggable items */
     gap: 10px;
-    padding: 0;
-    width: 100%;            /* use full width */
+    padding: 10px;
     max-height: 90vh;
-    overflow-y: auto;       /* scroll vertically if needed */
-    overflow-x: hidden;     /* hide horizontal scroll */
-    position: relative;
-    z-index: 10;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.6); /* optional for visibility */
+    border-radius: 10px;
 }
 
-/* All draggable images */
+/* Draggable images */
 #left-column img.draggable {
-    width: 90px;            /* default width for other items */
-    height: auto;
+    width: auto;          /* maintain original width */
+    height: 80px;         /* scaled for proportion */
     object-fit: contain;
-    margin: 0;
     cursor: grab;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s;
 }
 
-#left-column img.draggable:hover {
-    transform: scale(1.1);
-}
-
-/* ---------------- SPECIFIC ITEM RESIZING ---------------- */
-/* Faces */
-.draggable.face {
-    width: 90px;
-    height: auto;
-}
-
-/* Hats */
-.draggable.hat {
-    width: 100px;
-    height: auto;
-}
-
-/* Shirts */
-.draggable.shirt {
-    width: 110px;
-    height: auto;
-}
-
-/* Pants */
-.draggable.pants {
-    width: 100px;
-    height: auto;
-}
-
-/* Glasses */
-.draggable.glasses {
-    width: 80px;
-    height: auto;
-}
-
-/* Shoes */
-.draggable.shoes {
-    width: 90px;
-    height: auto;
+#left-column img.draggable:active {
+    cursor: grabbing;
+    transform: scale(1.1); /* visual feedback when dragging */
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
-    position: relative;
+    width: 55%;           /* smaller stickman area */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.6); /* optional for visibility */
+    border-radius: 10px;
 }
 
 /* Stickman image */
-#right-column img#stickman {
-    width: 160px;          /* smaller stickman */
-    height: 320px;         /* proportional height */
-    margin: 0;
+#stickman {
+    width: 160px;    
+    height: 320px;   
+    display: block;
+    margin-bottom: 20px;
 }
 
-/* Logo fixed position */
-img#logo {
-    position: fixed;
-    width: 150px;
-    bottom: 20px;
-    right: 10px;
+/* Logo below stickman */
+#logo {
+    width: 100px;
+    height: auto;
+    margin-top: 10px;
 }
 
-/* ---------------- BUTTONS ---------------- */
-.button-container {
-    text-align: center;
-    margin: 10px;
-}
-
+/* ---------------- BUTTONS (optional if used) ---------------- */
 button {
     padding: 10px 20px;
     margin: 10px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.2s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #555;
 }
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1200px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+    }
+    #left-column, #right-column {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}
+
+
 
 
