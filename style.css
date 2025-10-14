@@ -52,6 +52,26 @@ body {
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 1); /* Neon orange glow */
 }
 
+/* Resize Eyes, Glasses, and Shoes to fit the Stickman */
+
+/* Specific styling for eyes images */
+#left-column img[id^="eyes_"] {
+  height: 40px;  /* Resize eyes images to fit the stickman */
+  width: auto;   /* Maintain aspect ratio */
+}
+
+/* Specific styling for glasses images */
+#left-column img[id^="glasses_"] {
+  height: 40px;  /* Resize glasses images to fit the stickman */
+  width: auto;   /* Maintain aspect ratio */
+}
+
+/* Specific styling for shoe images */
+#left-column img[id^="shoe_"] {
+  height: 50px;  /* Resize shoe images to fit the stickman */
+  width: auto;   /* Maintain aspect ratio */
+}
+
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex-basis: 60%;
@@ -113,3 +133,5 @@ body {
     height: 80px;
   }
 }
+
+ 
