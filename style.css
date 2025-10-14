@@ -1,8 +1,58 @@
-/* Right column stickman image */
+/* ---------------- LEFT COLUMN ---------------- */
+#left-column {
+    display: flex;
+    flex-wrap: wrap;
+    width: 720px;      /* adjust as needed */
+    gap: 10px;
+    padding: 10px;
+    max-height: 90vh;
+    overflow-y: auto;  /* scroll if too many items */
+}
+
+/* All draggable images */
+#left-column img.draggable {
+    width: 80px;       /* default size for most items */
+    height: auto;
+    object-fit: contain;
+    margin: 5px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+}
+
+#left-column img.draggable:hover {
+    transform: scale(1.1); /* subtle zoom on hover */
+}
+
+/* ---------------- SPECIFIC ITEM RESIZING ---------------- */
+/* Faces */
+.draggable.face {
+    width: 60px;       /* fits head proportionally */
+    height: auto;
+}
+
+/* Hats */
+.draggable.hat {
+    width: 70px;       /* sits nicely on head */
+    height: auto;
+}
+
+/* Shirts / torso */
+.draggable.shirt {
+    width: 90px;       /* covers torso proportionally */
+    height: auto;
+}
+
+/* ---------------- RIGHT COLUMN ---------------- */
+#right-column {
+    position: relative;
+}
+
+/* Stickman image */
 #right-column img#stickman {
-    width: 230px;
-    margin-left: 140px;
-    margin-top: 100px;
+    width: 180px;       /* smaller stickman */
+    height: 360px;      /* proportional height */
+    margin-left: 140px; /* adjust horizontal positioning */
+    margin-top: 100px;  /* adjust vertical positioning */
 }
 
 /* Logo fixed position */
@@ -13,9 +63,24 @@ img#logo {
     right: 10px;
 }
 
+/* ---------------- BUTTONS (optional) ---------------- */
+.button-container {
+    text-align: center;
+    margin: 10px;
+}
 
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-
-
- 
-
+button:hover {
+    background-color: #45a049;
+}
