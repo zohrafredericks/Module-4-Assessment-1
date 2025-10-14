@@ -72,6 +72,12 @@ body {
   width: auto;   /* Maintain aspect ratio */
 }
 
+/* Specific styling for catface image */
+#left-column img[src="images/catface.png"] {
+  height: 50px;  /* Resize catface.png to 50px in height */
+  width: auto;   /* Maintain aspect ratio */
+}
+
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex-basis: 60%;
@@ -134,4 +140,4 @@ body {
   }
 }
 
- 
+
