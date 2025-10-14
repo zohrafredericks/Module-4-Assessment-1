@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stickman Dress-Up</title>
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="javascript/api.js"></script>
 </head>
 <body>
 
@@ -40,5 +39,47 @@
     <img src="images/logo.png" id="logo">
   </div>
 
+  <!-- ---------------- DRAG-AND-DROP JS ---------------- -->
+  <script>
+  const draggables = document.querySelectorAll('.draggable');
+  const stickmanArea = document.getElementById('right-column');
+
+  draggables.forEach(img => {
+      img.addEventListener('mousedown', dragStart);
+
+      function dragStart(e) {
+          e.preventDefault();
+
+          // move image to body to allow free movement
+          img.style.position = 'absolute';
+          img.style.zIndex = 1000;
+          document.body.appendChild(img);
+
+          moveAt(e.pageX, e.pageY);
+
+          function moveAt(pageX, pageY) {
+              img.style.left = pageX - img.offsetWidth / 2 + 'px';
+              img.style.top = pageY - img.offsetHeight / 2 + 'px';
+          }
+
+          function onMouseMove(event) {
+              moveAt(event.pageX, event.pageY);
+          }
+
+          document.addEventListener('mousemove', onMouseMove);
+
+          img.onmouseup = function() {
+              document.removeEventListener('mousemove', onMouseMove);
+              img.onmouseup = null;
+
+              // append back to stickman area (or stay where dropped)
+              stickmanArea.appendChild(img);
+              img.style.position = 'absolute';
+          };
+      }
+  });
+  </script>
+
 </body>
 </html>
+
