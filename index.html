@@ -178,41 +178,48 @@ draggables.forEach(img => {
     img.addEventListener('mousedown', e => {
         e.preventDefault();
 
-        // Append to container if not already
-        if (img.parentElement !== container) container.appendChild(img);
-
-        // Scale first
+        // Scale image first
         scaleItem(img);
 
-        // Compute offsets AFTER scaling
-        const imgRect = img.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        offsetX = e.clientX - imgRect.left;
-        offsetY = e.clientY - imgRect.top;
-
+        // Move image to body to allow free movement
+        document.body.appendChild(img);
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
 
-        function move(e) {
-            const left = e.clientX - containerRect.left - offsetX;
-            const top = e.clientY - containerRect.top - offsetY;
+        // Calculate offset relative to image
+        const rect = img.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
 
-            // Optional: constrain within container
-            img.style.left = Math.max(0, Math.min(left, container.offsetWidth - img.offsetWidth)) + 'px';
-            img.style.top = Math.max(0, Math.min(top, container.offsetHeight - img.offsetHeight)) + 'px';
+        function moveAt(e) {
+            img.style.left = (e.clientX - offsetX) + 'px';
+            img.style.top = (e.clientY - offsetY) + 'px';
         }
 
-        function stopMove() {
-            document.removeEventListener('mousemove', move);
-            document.removeEventListener('mouseup', stopMove);
+        moveAt(e); // Initial position
 
-            // store relative position for responsive resize
+        function onMouseMove(e) {
+            moveAt(e);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        img.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            img.onmouseup = null;
+
+            // Move image back to container
+            container.appendChild(img);
+
+            // Set absolute position relative to container
+            const containerRect = container.getBoundingClientRect();
+            img.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
+            img.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
+
+            // Store relative position for responsive
             img.dataset.relLeft = img.offsetLeft / container.offsetWidth;
             img.dataset.relTop = img.offsetTop / container.offsetHeight;
-        }
-
-        document.addEventListener('mousemove', move);
-        document.addEventListener('mouseup', stopMove);
+        };
     });
 });
 
