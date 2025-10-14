@@ -3,32 +3,34 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     color: #333;
-    background-image: url('images/background01.png'); /* full-page background */
+    background-image: url('images/background01.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* removes horizontal scroll */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
     display: flex;
     flex-wrap: wrap;
-    width: 40%;           /* larger area for draggable items */
+    width: 40%;           /* draggable area */
     gap: 10px;
     padding: 10px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.6); /* optional for visibility */
+    max-height: 100%;      /* fills vertical space */
+    overflow-y: auto;      /* vertical scroll only */
+    background-color: rgba(255, 255, 255, 0.6); /* optional visibility */
     border-radius: 10px;
 }
 
 /* Draggable images */
 #left-column img.draggable {
-    width: auto;          /* maintain original width */
-    height: 80px;         /* scaled for proportion */
+    width: auto;
+    height: 100px;       /* scaled proportionally */
     object-fit: contain;
     cursor: grab;
     transition: transform 0.2s;
@@ -36,25 +38,26 @@ body {
 
 #left-column img.draggable:active {
     cursor: grabbing;
-    transform: scale(1.1); /* visual feedback when dragging */
+    transform: scale(1.1); /* visual feedback while dragging */
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
-    width: 55%;           /* smaller stickman area */
+    width: 60%;            /* stickman area */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.6); /* optional for visibility */
+    overflow: visible;     /* allows items to be dragged onto stickman */
+    background-color: rgba(255, 255, 255, 0.6); /* optional visibility */
     border-radius: 10px;
 }
 
-/* Stickman image */
+/* Stickman */
 #stickman {
-    width: 160px;    
-    height: 320px;   
+    width: 160px;
+    height: 320px;
     display: block;
     margin-bottom: 20px;
 }
@@ -63,24 +66,6 @@ body {
 #logo {
     width: 100px;
     height: auto;
-    margin-top: 10px;
-}
-
-/* ---------------- BUTTONS (optional if used) ---------------- */
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #333;
-    color: #fff;
-    transition: background-color 0.2s;
-}
-
-button:hover {
-    background-color: #555;
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -94,6 +79,9 @@ button:hover {
         margin-bottom: 20px;
     }
 }
+
+
+
 
 
 
