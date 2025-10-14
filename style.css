@@ -7,174 +7,86 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-/* ---------------- HEADER ---------------- */
-.header-container {
     display: flex;
-    justify-content: space-between; /* title left, logo right */
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.header-container h1 {
-    margin: 0;
-}
-
-#logo {
-    width: 120px;
-    height: auto;
-}
-
-/* ---------------- PARAGRAPHS ---------------- */
-p {
-    text-align: center;
-    line-height: 1.5;
-    margin: 5px 20px;
-}
-
-/* ---------------- MAIN CONTAINER ---------------- */
-.main-container {
-    display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 20px;
-    padding: 20px;
-}
-
-/* ---------------- LEFT GALLERY ---------------- */
-.left-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    width: 720px;
-    max-height: 100vh;
-    gap: 10px;
-    justify-content: flex-start;
+    height: 100vh;
     overflow: hidden;
 }
 
+/* ---------------- LEFT COLUMN (ITEM GALLERY) ---------------- */
+#left-column {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
+    gap: 10px;
+    justify-content: center;
+    align-content: flex-start;
+    background: rgba(255, 255, 255, 0.2); /* light overlay for clarity */
+    box-sizing: border-box;
+}
+
 /* Gallery images */
-.left-gallery img,
-.accessory-image {
+#left-column img {
     width: 100px;
     height: 100px;
     object-fit: contain;
-    margin: 5px;
     cursor: grab;
-    position: relative;
+    transition: transform 0.2s ease;
 }
 
-/* Draggable cursor effect */
-.draggable { cursor: grab; }
-.dragging { opacity: 0.7; }
-
-/* ---------------- STICKMAN ---------------- */
-#stickman-wrapper {
-    position: relative;
-    width: 280px;       /* scaled down */
-    height: 562px;      /* proportional height */
-    margin: 20px auto;
+#left-column img:hover {
+    transform: scale(1.1);
 }
 
+/* ---------------- RIGHT COLUMN (STICKMAN AREA) ---------------- */
+#right-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 100vh;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Stickman */
 #stickman {
-    width: 100%;
-    height: 100%;
+    width: 280px;
+    height: auto;
     object-fit: contain;
 }
 
-/* ---------------- STICKMAN ZONES ---------------- */
-#hat-zone {
-    position: absolute;
-    top: 32px;
-    left: 96px;
-    width: 88px;
-    height: 64px;
-    pointer-events: none;
+/* Logo */
+#logo {
+    width: 120px;
+    height: auto;
+    margin-top: 20px;
 }
 
-#head-zone {
-    position: absolute;
-    top: 72px;
-    left: 104px;
-    width: 72px;
-    height: 32px;
-    pointer-events: none;
+/* ---------------- DRAG EFFECTS ---------------- */
+.draggable {
+    cursor: grab;
 }
 
-#nose-zone {
-    position: absolute;
-    top: 104px;
-    left: 112px;
-    width: 56px;
-    height: 32px;
-    pointer-events: none;
+.dragging {
+    opacity: 0.7;
 }
 
-#torso-zone {
-    position: absolute;
-    top: 144px;
-    left: 88px;
-    width: 104px;
-    height: 120px;
-    pointer-events: none;
+/* Optional: smooth scroll for large galleries */
+#left-column::-webkit-scrollbar {
+    width: 10px;
 }
 
-#legs-zone {
-    position: absolute;
-    top: 264px;
-    left: 92px;
-    width: 96px;
-    height: 160px;
-    pointer-events: none;
-}
-
-#left-foot {
-    position: absolute;
-    top: 424px;
-    left: 96px;
-    width: 40px;
-    height: 40px;
-    pointer-events: none;
-}
-
-#right-foot {
-    position: absolute;
-    top: 424px;
-    left: 144px;
-    width: 40px;
-    height: 40px;
-    pointer-events: none;
-}
-
-/* ---------------- BUTTONS ---------------- */
-.button-container {
-    text-align: center;
-    margin: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
+#left-column::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #45a049;
-}
 
-/* ---------------- LINKS ---------------- */
-a {
-    color: #333;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
+ 
 
