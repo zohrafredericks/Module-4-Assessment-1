@@ -19,6 +19,39 @@ body {
   padding: 0; /* remove any invisible padding */
   /* Neon glow effect */
   box-shadow: 0 0 30px 10px rgba(255, 165, 0, 0.7); /* Neon orange glow */
+  position: relative; /* Ensure the pseudo-elements are positioned relative to the body */
+}
+
+/* Adding a subtle light neon blue border to the four corners */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 255, 255, 0.5); /* Light neon blue color */
+  box-shadow: 0 0 15px 3px rgba(0, 255, 255, 0.7); /* Subtle neon blue glow effect */
+}
+
+body::before {
+  top: 0;
+  left: 0;
+}
+
+body::after {
+  top: 0;
+  right: 0;
+}
+
+/* Optional: Adding pseudo-elements for the bottom corners */
+body::before {
+  bottom: 0;
+  left: 0;
+}
+
+body::after {
+  bottom: 0;
+  right: 0;
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -139,7 +172,6 @@ body {
     height: 80px;
   }
 }
-
 
 
 
