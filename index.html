@@ -134,6 +134,7 @@ body {
 <script>
 const draggables = document.querySelectorAll('.draggable');
 const stickman = document.getElementById('stickman');
+const rightColumn = document.getElementById('right-column');
 
 // Define scale for each type
 const itemSizes = {
@@ -149,15 +150,15 @@ const itemSizes = {
 };
 
 function getItemType(img) {
-    const src = img.src.toLowerCase();
-    if(src.includes('hat')) return 'hat';
-    if(src.includes('glasses')) return 'glasses';
-    if(src.includes('shirt') || src.includes('mansuite')) return 'shirt';
-    if(src.includes('pants')) return 'pants';
-    if(src.includes('shoe')) return 'shoe';
-    if(src.includes('eyes')) return 'eyes';
-    if(src.includes('roundface')) return 'roundface';
-    if(src.includes('catface')) return 'catface';
+    const filename = img.src.split('/').pop().toLowerCase();
+    if(filename.includes('hat')) return 'hat';
+    if(filename.includes('glasses')) return 'glasses';
+    if(filename.includes('shirt') || filename.includes('mansuite')) return 'shirt';
+    if(filename.includes('pants')) return 'pants';
+    if(filename.includes('shoe')) return 'shoe';
+    if(filename.includes('eyes')) return 'eyes';
+    if(filename.includes('roundface')) return 'roundface';
+    if(filename.includes('catface')) return 'catface';
     return null;
 }
 
@@ -174,20 +175,23 @@ draggables.forEach(img => {
     img.addEventListener('mousedown', e => {
         e.preventDefault();
 
-        scaleItem(img); // scale relative to stickman
+        // Scale relative to stickman
+        scaleItem(img);
 
-        // move to body for free dragging
-        document.body.appendChild(img);
+        // Move image to right column for free dragging
+        rightColumn.appendChild(img);
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
 
+        // Get mouse offset inside the image
         const rect = img.getBoundingClientRect();
+        const rightRect = rightColumn.getBoundingClientRect();
         const offsetX = e.clientX - rect.left;
         const offsetY = e.clientY - rect.top;
 
         function moveAt(e) {
-            img.style.left = e.clientX - offsetX + 'px';
-            img.style.top = e.clientY - offsetY + 'px';
+            img.style.left = e.clientX - rightRect.left - offsetX + 'px';
+            img.style.top = e.clientY - rightRect.top - offsetY + 'px';
         }
 
         moveAt(e);
@@ -199,10 +203,12 @@ draggables.forEach(img => {
             document.removeEventListener('mousemove', onMouseMove);
             img.onmouseup = null;
         };
+
+        img.ondragstart = function() { return false; };
     });
 });
 
-// Optional: update scale on window resize
+// Rescale images if window is resized
 window.addEventListener('resize', () => {
     draggables.forEach(img => scaleItem(img));
 });
@@ -210,4 +216,3 @@ window.addEventListener('resize', () => {
 
 </body>
 </html>
-
