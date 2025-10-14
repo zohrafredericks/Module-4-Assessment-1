@@ -51,7 +51,6 @@ body {
 #right-column {
     flex-basis: 60%;
     max-width: 60%;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,6 +58,7 @@ body {
     padding: 10px;
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
+    position: relative;
 }
 
 /* Stickman */
@@ -133,10 +133,9 @@ body {
 
 <script>
 const draggables = document.querySelectorAll('.draggable');
-const container = document.getElementById('right-column');
 const stickman = document.getElementById('stickman');
 
-// Define approximate scaling relative to stickman for each type
+// Define scale for each type
 const itemSizes = {
     hat: 0.8,
     glasses: 0.4,
@@ -149,7 +148,6 @@ const itemSizes = {
     mansuite: 0.9
 };
 
-// Determine type from filename
 function getItemType(img) {
     const src = img.src.toLowerCase();
     if(src.includes('hat')) return 'hat';
@@ -163,7 +161,6 @@ function getItemType(img) {
     return null;
 }
 
-// Scale image relative to stickman
 function scaleItem(img) {
     const type = getItemType(img);
     if(type && itemSizes[type]) {
@@ -172,30 +169,28 @@ function scaleItem(img) {
     }
 }
 
-// ---------------- DRAG AND DROP ----------------
+// ---------------- DRAG ----------------
 draggables.forEach(img => {
     img.addEventListener('mousedown', e => {
         e.preventDefault();
 
-        // scale first
-        scaleItem(img);
+        scaleItem(img); // scale relative to stickman
 
-        // move to body to remove container offset
+        // move to body for free dragging
         document.body.appendChild(img);
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
 
-        // calculate offset after scaling
         const rect = img.getBoundingClientRect();
-        let offsetX = e.clientX - rect.left;
-        let offsetY = e.clientY - rect.top;
+        const offsetX = e.clientX - rect.left;
+        const offsetY = e.clientY - rect.top;
 
         function moveAt(e) {
             img.style.left = e.clientX - offsetX + 'px';
             img.style.top = e.clientY - offsetY + 'px';
         }
 
-        moveAt(e); // initial
+        moveAt(e);
 
         function onMouseMove(e) { moveAt(e); }
         document.addEventListener('mousemove', onMouseMove);
@@ -203,35 +198,16 @@ draggables.forEach(img => {
         img.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
             img.onmouseup = null;
-
-            // move back to container
-            container.appendChild(img);
-
-            // set absolute position relative to container
-            const containerRect = container.getBoundingClientRect();
-            img.style.left = e.clientX - containerRect.left - offsetX + 'px';
-            img.style.top = e.clientY - containerRect.top - offsetY + 'px';
-
-            // store relative position for responsive scaling
-            img.dataset.relLeft = img.offsetLeft / container.offsetWidth;
-            img.dataset.relTop = img.offsetTop / container.offsetHeight;
         };
     });
 });
 
-// ---------------- RESIZE HANDLER ----------------
+// Optional: update scale on window resize
 window.addEventListener('resize', () => {
-    draggables.forEach(img => {
-        if(img.dataset.relLeft && img.dataset.relTop) {
-            img.style.left = img.dataset.relLeft * container.offsetWidth + 'px';
-            img.style.top = img.dataset.relTop * container.offsetHeight + 'px';
-            scaleItem(img);
-        }
-    });
+    draggables.forEach(img => scaleItem(img));
 });
 </script>
 
 </body>
 </html>
 
-      
