@@ -1,27 +1,23 @@
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
     display: flex;
-    flex-wrap: nowrap;       /* single horizontal row */
-    width: 720px;
+    flex-wrap: wrap;        /* allow multiple rows */
     gap: 10px;
     padding: 0;
+    width: 100%;            /* use full width */
     max-height: 90vh;
-    overflow-x: auto;        /* horizontal scroll if needed */
-    overflow-y: hidden;      /* hide vertical scroll */
-    scrollbar-width: none;   /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-}
-
-#left-column::-webkit-scrollbar {
-    display: none;           /* Chrome, Safari, Edge */
+    overflow-y: auto;       /* scroll vertically if needed */
+    overflow-x: hidden;     /* hide horizontal scroll */
+    position: relative;
+    z-index: 10;
 }
 
 /* All draggable images */
 #left-column img.draggable {
-    width: 110px;       /* default for other items */
+    width: 90px;            /* default width for other items */
     height: auto;
     object-fit: contain;
-    margin: 0;          /* no margins */
+    margin: 0;
     cursor: grab;
     transition: transform 0.2s ease;
 }
@@ -33,19 +29,37 @@
 /* ---------------- SPECIFIC ITEM RESIZING ---------------- */
 /* Faces */
 .draggable.face {
-    width: 90px;        
+    width: 90px;
     height: auto;
 }
 
 /* Hats */
 .draggable.hat {
-    width: 100px;       
+    width: 100px;
     height: auto;
 }
 
-/* Shirts / torso */
+/* Shirts */
 .draggable.shirt {
-    width: 110px;       
+    width: 110px;
+    height: auto;
+}
+
+/* Pants */
+.draggable.pants {
+    width: 100px;
+    height: auto;
+}
+
+/* Glasses */
+.draggable.glasses {
+    width: 80px;
+    height: auto;
+}
+
+/* Shoes */
+.draggable.shoes {
+    width: 90px;
     height: auto;
 }
 
@@ -56,9 +70,9 @@
 
 /* Stickman image */
 #right-column img#stickman {
-    width: 160px;       /* smaller stickman */
-    height: 320px;      /* proportional height */
-    margin: 0;          /* no extra margins */
+    width: 160px;          /* smaller stickman */
+    height: 320px;         /* proportional height */
+    margin: 0;
 }
 
 /* Logo fixed position */
@@ -92,5 +106,3 @@ button:hover {
 }
 
 
-
- 
