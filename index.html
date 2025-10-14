@@ -3,54 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stickman Dress-Up</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Drag and Drop Example</title>
+  <link rel="stylesheet" href="style.css"> <!-- Your CSS file -->
+  <script type="text/javascript" src="javascript/api.js"></script> <!-- Your JavaScript file -->
 </head>
-
 <body>
-  <!-- NEW free-drag layer -->
-  <div id="drag-layer"></div>
-
-  <!-- Sparkle Effect Layer -->
-  <div id="sparkle-layer">
-    <!-- Example sparkles -->
-    <div class="sparkle" style="left: 20%; top: 90%; animation-delay: 0s;"></div>
-    <div class="sparkle" style="left: 50%; top: 95%; animation-delay: 1s;"></div>
-    <div class="sparkle" style="left: 70%; top: 92%; animation-delay: 2s;"></div>
-    <!-- Add more sparkles as needed -->
-  </div>
-
+  <!-- LEFT COLUMN: Draggable Images -->
   <div id="left-column">
-    <img src="images/eyes_01.png" class="draggable"/>
-    <img src="images/eyes_03.png" class="draggable"/>
-    <img src="images/roundface.png" class="draggable"/>
-    <img src="images/catface.png" class="draggable"/>
-    <img src="images/redhat.png" class="draggable"/>
-    <img src="images/hat_02.png" class="draggable"/>
-    <img src="images/glasses_01.png" class="draggable"/>
-    <img src="images/glasses_03.png" class="draggable"/>
-    <img src="images/mansuite.jpg" class="draggable"/>
-    <img src="images/shirt_01.png" class="draggable"/>
-    <img src="images/shirt_02.png" class="draggable"/>
-    <img src="images/shirt_03.png" class="draggable"/>
-    <img src="images/shirt_04.png" class="draggable"/>
-    <img src="images/shirt_05.png" class="draggable"/>
-    <img src="images/pants_01.png" class="draggable"/>
-    <img src="images/pants_02.png" class="draggable"/>
-    <img src="images/pants_03.png" class="draggable"/>
-    <img src="images/pants_04.png" class="draggable"/>
-    <img src="images/pants_05.png" class="draggable"/>
-    <img src="images/shoe_01_L.png" class="draggable"/>
-    <img src="images/shoe_01_R.png" class="draggable"/>
-    <img src="images/shoe_02_L.png" class="draggable"/>
-    <img src="images/shoe_02_R.png" class="draggable"/>
+    <img src="images/eyes_01.png" class="draggable" id="eyes_01"/>
+    <img src="images/eyes_03.png" class="draggable" id="eyes_03"/>
+    <img src="images/roundface.png" class="draggable" id="roundface"/>
+    <img src="images/catface.png" class="draggable" id="catface"/>
+    <img src="images/redhat.png" class="draggable" id="redhat"/>
+    <img src="images/hat_02.png" class="draggable" id="hat_02"/>
+    <img src="images/glasses_01.png" class="draggable" id="glasses_01"/>
+    <img src="images/glasses_03.png" class="draggable" id="glasses_03"/>
+    <img src="images/mansuite.jpg" class="draggable" id="mansuite"/>
+    <img src="images/shirt_01.png" class="draggable" id="shirt_01"/>
+    <img src="images/shirt_02.png" class="draggable" id="shirt_02"/>
+    <img src="images/shirt_03.png" class="draggable" id="shirt_03"/>
+    <img src="images/shirt_04.png" class="draggable" id="shirt_04"/>
+    <img src="images/shirt_05.png" class="draggable" id="shirt_05"/>
+    <img src="images/pants_01.png" class="draggable" id="pants_01"/>
+    <img src="images/pants_02.png" class="draggable" id="pants_02"/>
+    <img src="images/pants_03.png" class="draggable" id="pants_03"/>
+    <img src="images/pants_04.png" class="draggable" id="pants_04"/>
+    <img src="images/pants_05.png" class="draggable" id="pants_05"/>
+    <img src="images/shoe_01_L.png" class="draggable" id="shoe_01_L"/>
+    <img src="images/shoe_01_R.png" class="draggable" id="shoe_01_R"/>
+    <img src="images/shoe_02_L.png" class="draggable" id="shoe_02_L"/>
+    <img src="images/shoe_02_R.png" class="draggable" id="shoe_02_R"/>
   </div>
 
+  <!-- RIGHT COLUMN: Drop Area -->
   <div id="right-column">
-    <img src="images/stickman.png" id="stickman">
-    <img src="images/logo.png" id="logo">
+    <img src="images/stickman.png" id="stickman" alt="Stickman">
+    <img src="images/logo.png" id="logo" alt="Logo">
   </div>
 </body>
 </html>
 
-   
