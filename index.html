@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stickman Dress-Up</title>
-<link rel="stylesheet" href="style.css">
 <style>
 /* ---------------- BODY ---------------- */
 * { box-sizing: border-box; }
@@ -21,7 +20,7 @@ body {
     flex-direction: row;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;      /* removes all scrollbars */
+    overflow: hidden; /* removes all scrollbars */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -32,17 +31,18 @@ body {
     max-width: 40%;
     gap: 10px;
     padding: 10px;
-    overflow: hidden;      /* no scrollbar */
+    overflow: hidden;
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
 
 /* Draggable images */
 #left-column img.draggable {
-    height: 100px;
     width: auto;
+    height: 100px;
     cursor: grab;
     object-fit: contain;
+    transition: transform 0.1s;
 }
 #left-column img.draggable:active {
     cursor: grabbing;
@@ -58,9 +58,10 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    overflow: visible;     /* allows draggables to be placed freely */
+    overflow: visible;
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
+    position: relative; /* required for absolute positioning of children */
 }
 
 /* Stickman */
@@ -146,23 +147,28 @@ draggables.forEach(img => {
     function dragStart(e) {
         e.preventDefault();
 
-        // move image to body to allow free movement
+        // Append to stickman area if not already there
+        if (img.parentElement !== stickmanArea) {
+            stickmanArea.appendChild(img);
+        }
+
+        const rect = img.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
-        document.body.appendChild(img);
 
-        offsetX = e.pageX - img.getBoundingClientRect().left;
-        offsetY = e.pageY - img.getBoundingClientRect().top;
+        moveAt(e.clientX, e.clientY);
 
-        moveAt(e.pageX, e.pageY);
-
-        function moveAt(pageX, pageY) {
-            img.style.left = pageX - offsetX + 'px';
-            img.style.top = pageY - offsetY + 'px';
+        function moveAt(clientX, clientY) {
+            const stickRect = stickmanArea.getBoundingClientRect();
+            img.style.left = (clientX - stickRect.left - offsetX) + 'px';
+            img.style.top = (clientY - stickRect.top - offsetY) + 'px';
         }
 
         function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
+            moveAt(event.clientX, event.clientY);
         }
 
         document.addEventListener('mousemove', onMouseMove);
@@ -171,13 +177,10 @@ draggables.forEach(img => {
             document.removeEventListener('mousemove', onMouseMove);
             img.onmouseup = null;
 
-            // keep image in place (stay in body)
-            img.style.position = 'absolute';
-
             // store relative position to stickman for resizing
             const stickRect = stickmanArea.getBoundingClientRect();
-            img.dataset.relLeft = (img.offsetLeft - stickRect.left) / stickRect.width;
-            img.dataset.relTop = (img.offsetTop - stickRect.top) / stickRect.height;
+            img.dataset.relLeft = img.offsetLeft / stickRect.width;
+            img.dataset.relTop = img.offsetTop / stickRect.height;
         };
     }
 });
@@ -187,8 +190,8 @@ window.addEventListener('resize', () => {
     const stickRect = stickmanArea.getBoundingClientRect();
     draggables.forEach(img => {
         if (img.dataset.relLeft && img.dataset.relTop) {
-            img.style.left = stickRect.left + img.dataset.relLeft * stickRect.width + 'px';
-            img.style.top = stickRect.top + img.dataset.relTop * stickRect.height + 'px';
+            img.style.left = img.dataset.relLeft * stickRect.width + 'px';
+            img.style.top = img.dataset.relTop * stickRect.height + 'px';
         }
     });
 });
@@ -196,7 +199,3 @@ window.addEventListener('resize', () => {
 
 </body>
 </html>
-
-  
-   
-
