@@ -1,14 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stickman Dress-Up</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stickman Dress-Up</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---------------- BODY ---------------- */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-image: url('images/background01.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;      /* removes all scrollbars */
+}
+
+/* ---------------- LEFT COLUMN ---------------- */
+#left-column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 40%;
+    max-width: 40%;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;      /* no scrollbar */
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
+/* Draggable images */
+#left-column img.draggable {
+    height: 100px;
+    width: auto;
+    cursor: grab;
+    object-fit: contain;
+}
+#left-column img.draggable:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* ---------------- RIGHT COLUMN ---------------- */
+#right-column {
+    flex-basis: 60%;
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: visible;     /* allows draggables to be placed freely */
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
+/* Stickman */
+#stickman {
+    width: 160px;
+    height: 320px;
+    margin-bottom: 20px;
+}
+
+/* Logo */
+#logo {
+    width: 100px;
+    height: auto;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1200px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+    }
+    #left-column, #right-column {
+        flex-basis: 90%;
+        max-width: 90%;
+        margin-bottom: 0;
+    }
+    #stickman {
+        width: 120px;
+        height: 240px;
+    }
+    #left-column img.draggable {
+        height: 80px;
+    }
+}
+</style>
 </head>
 <body>
 
-  <div id="left-column">
+<div id="left-column">
     <img src="images/eyes_01.png" class="draggable"/>
     <img src="images/eyes_03.png" class="draggable"/>
     <img src="images/roundface.png" class="draggable"/>
@@ -32,54 +126,77 @@
     <img src="images/shoe_01_R.png" class="draggable"/>
     <img src="images/shoe_02_L.png" class="draggable"/>
     <img src="images/shoe_02_R.png" class="draggable"/>
-  </div> 
+</div> 
 
-  <div id="right-column">
+<div id="right-column">
     <img src="images/stickman2.png" id="stickman"> 
     <img src="images/logo.png" id="logo">
-  </div>
+</div>
 
-  <!-- ---------------- DRAG-AND-DROP JS ---------------- -->
-  <script>
-  const draggables = document.querySelectorAll('.draggable');
-  const stickmanArea = document.getElementById('right-column');
+<!-- ---------------- DRAG-AND-DROP JS ---------------- -->
+<script>
+const draggables = document.querySelectorAll('.draggable');
+const stickmanArea = document.getElementById('right-column');
 
-  draggables.forEach(img => {
-      img.addEventListener('mousedown', dragStart);
+draggables.forEach(img => {
+    let offsetX, offsetY;
 
-      function dragStart(e) {
-          e.preventDefault();
+    img.addEventListener('mousedown', dragStart);
 
-          // move image to body to allow free movement
-          img.style.position = 'absolute';
-          img.style.zIndex = 1000;
-          document.body.appendChild(img);
+    function dragStart(e) {
+        e.preventDefault();
 
-          moveAt(e.pageX, e.pageY);
+        // move image to body to allow free movement
+        img.style.position = 'absolute';
+        img.style.zIndex = 1000;
+        document.body.appendChild(img);
 
-          function moveAt(pageX, pageY) {
-              img.style.left = pageX - img.offsetWidth / 2 + 'px';
-              img.style.top = pageY - img.offsetHeight / 2 + 'px';
-          }
+        offsetX = e.pageX - img.getBoundingClientRect().left;
+        offsetY = e.pageY - img.getBoundingClientRect().top;
 
-          function onMouseMove(event) {
-              moveAt(event.pageX, event.pageY);
-          }
+        moveAt(e.pageX, e.pageY);
 
-          document.addEventListener('mousemove', onMouseMove);
+        function moveAt(pageX, pageY) {
+            img.style.left = pageX - offsetX + 'px';
+            img.style.top = pageY - offsetY + 'px';
+        }
 
-          img.onmouseup = function() {
-              document.removeEventListener('mousemove', onMouseMove);
-              img.onmouseup = null;
+        function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+        }
 
-              // append back to stickman area (or stay where dropped)
-              stickmanArea.appendChild(img);
-              img.style.position = 'absolute';
-          };
-      }
-  });
-  </script>
+        document.addEventListener('mousemove', onMouseMove);
+
+        img.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            img.onmouseup = null;
+
+            // keep image in place (stay in body)
+            img.style.position = 'absolute';
+
+            // store relative position to stickman for resizing
+            const stickRect = stickmanArea.getBoundingClientRect();
+            img.dataset.relLeft = (img.offsetLeft - stickRect.left) / stickRect.width;
+            img.dataset.relTop = (img.offsetTop - stickRect.top) / stickRect.height;
+        };
+    }
+});
+
+// Keep images aligned relative to stickman on window resize
+window.addEventListener('resize', () => {
+    const stickRect = stickmanArea.getBoundingClientRect();
+    draggables.forEach(img => {
+        if (img.dataset.relLeft && img.dataset.relTop) {
+            img.style.left = stickRect.left + img.dataset.relLeft * stickRect.width + 'px';
+            img.style.top = stickRect.top + img.dataset.relTop * stickRect.height + 'px';
+        }
+    });
+});
+</script>
 
 </body>
 </html>
+
+  
+   
 
