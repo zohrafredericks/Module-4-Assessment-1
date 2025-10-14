@@ -1,6 +1,6 @@
 /* ---------------- BODY ---------------- */
 * {
-    box-sizing: border-box; /* padding and borders included in width/height */
+    box-sizing: border-box;
 }
 
 body {
@@ -15,19 +15,18 @@ body {
     flex-direction: row;
     height: 100vh;
     width: 100vw;
-    overflow-x: hidden;       /* remove horizontal scrollbar */
-    overflow-y: hidden;       /* optional: remove vertical scrollbar on body */
+    overflow: hidden;      /* removes all scrollbars */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
-    flex: 0 0 40%;           /* takes 40% of width */
-    max-width: 40%;
     display: flex;
     flex-wrap: wrap;
+    flex-basis: 40%;
+    max-width: 40%;
     gap: 10px;
     padding: 10px;
-    overflow-y: auto;         /* vertical scroll if many items */
+    overflow: hidden;      /* no scrollbar */
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
@@ -36,11 +35,9 @@ body {
 #left-column img.draggable {
     height: 100px;
     width: auto;
-    object-fit: contain;
     cursor: grab;
-    transition: transform 0.2s;
+    object-fit: contain;
 }
-
 #left-column img.draggable:active {
     cursor: grabbing;
     transform: scale(1.1);
@@ -48,14 +45,14 @@ body {
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
-    flex: 0 0 60%;           /* takes 60% of width */
+    flex-basis: 60%;
     max-width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
-    overflow: visible;        /* allows draggables to be placed freely */
+    overflow: visible;     /* allows draggables to be placed freely */
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
@@ -73,19 +70,19 @@ body {
     height: auto;
 }
 
-/* ---------------- RESPONSIVE (mobile/tablet) ---------------- */
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 1200px) {
     body {
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
-        height: auto;
-        width: 100%;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
     }
     #left-column, #right-column {
-        flex: 0 0 90%;
+        flex-basis: 90%;
         max-width: 90%;
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
     #stickman {
         width: 120px;
@@ -95,3 +92,6 @@ body {
         height: 80px;
     }
 }
+
+
+  
