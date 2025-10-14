@@ -1,44 +1,51 @@
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
     display: flex;
-    flex-wrap: wrap;
-    width: 720px;      /* adjust as needed */
+    flex-wrap: nowrap;       /* single horizontal row */
+    width: 720px;
     gap: 10px;
-    padding: 10px;
+    padding: 0;
     max-height: 90vh;
-    overflow-y: auto;  /* scroll if too many items */
+    overflow-x: auto;        /* horizontal scroll if needed */
+    overflow-y: hidden;      /* hide vertical scroll */
+    scrollbar-width: none;   /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+#left-column::-webkit-scrollbar {
+    display: none;           /* Chrome, Safari, Edge */
 }
 
 /* All draggable images */
 #left-column img.draggable {
-    width: 80px;       /* default size for most items */
+    width: 110px;       /* default for other items */
     height: auto;
     object-fit: contain;
-    margin: 5px;
+    margin: 0;          /* no margins */
     cursor: grab;
     transition: transform 0.2s ease;
 }
 
 #left-column img.draggable:hover {
-    transform: scale(1.1); /* subtle zoom on hover */
+    transform: scale(1.1);
 }
 
 /* ---------------- SPECIFIC ITEM RESIZING ---------------- */
 /* Faces */
 .draggable.face {
-    width: 60px;       /* fits head proportionally */
+    width: 90px;        
     height: auto;
 }
 
 /* Hats */
 .draggable.hat {
-    width: 70px;       /* sits nicely on head */
+    width: 100px;       
     height: auto;
 }
 
 /* Shirts / torso */
 .draggable.shirt {
-    width: 90px;       /* covers torso proportionally */
+    width: 110px;       
     height: auto;
 }
 
@@ -49,10 +56,9 @@
 
 /* Stickman image */
 #right-column img#stickman {
-    width: 180px;       /* smaller stickman */
-    height: 360px;      /* proportional height */
-    margin-left: 140px; /* adjust horizontal positioning */
-    margin-top: 100px;  /* adjust vertical positioning */
+    width: 160px;       /* smaller stickman */
+    height: 320px;      /* proportional height */
+    margin: 0;          /* no extra margins */
 }
 
 /* Logo fixed position */
@@ -63,7 +69,7 @@ img#logo {
     right: 10px;
 }
 
-/* ---------------- BUTTONS (optional) ---------------- */
+/* ---------------- BUTTONS ---------------- */
 .button-container {
     text-align: center;
     margin: 10px;
@@ -84,3 +90,7 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+
+ 
