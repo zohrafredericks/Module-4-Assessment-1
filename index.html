@@ -185,24 +185,28 @@ draggables.forEach(img => {
         scaleItem(img);
 
         // Compute offsets AFTER scaling
-        const rect = img.getBoundingClientRect();
+        const imgRect = img.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
+        offsetX = e.clientX - imgRect.left;
+        offsetY = e.clientY - imgRect.top;
 
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
 
         function move(e) {
-            img.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
-            img.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
+            const left = e.clientX - containerRect.left - offsetX;
+            const top = e.clientY - containerRect.top - offsetY;
+
+            // Optional: constrain within container
+            img.style.left = Math.max(0, Math.min(left, container.offsetWidth - img.offsetWidth)) + 'px';
+            img.style.top = Math.max(0, Math.min(top, container.offsetHeight - img.offsetHeight)) + 'px';
         }
 
         function stopMove() {
             document.removeEventListener('mousemove', move);
             document.removeEventListener('mouseup', stopMove);
 
-            // Store relative position for responsive resize
+            // store relative position for responsive resize
             img.dataset.relLeft = img.offsetLeft / container.offsetWidth;
             img.dataset.relTop = img.offsetTop / container.offsetHeight;
         }
@@ -226,3 +230,6 @@ window.addEventListener('resize', () => {
 
 </body>
 </html>
+
+
+
