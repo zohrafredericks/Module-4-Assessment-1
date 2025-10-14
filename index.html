@@ -20,7 +20,7 @@ body {
     flex-direction: row;
     height: 100vh;
     width: 100vw;
-    overflow: hidden; /* removes all scrollbars */
+    overflow: hidden; /* removes scrollbars */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -31,7 +31,7 @@ body {
     max-width: 40%;
     gap: 10px;
     padding: 10px;
-    overflow: hidden;
+    overflow: hidden; /* no scrollbar */
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
 }
@@ -61,7 +61,7 @@ body {
     overflow: visible;
     background-color: rgba(255,255,255,0.6);
     border-radius: 10px;
-    position: relative; /* required for absolute positioning of children */
+    position: relative; /* absolute children are relative to this */
 }
 
 /* Stickman */
@@ -137,20 +137,16 @@ body {
 <!-- ---------------- DRAG-AND-DROP JS ---------------- -->
 <script>
 const draggables = document.querySelectorAll('.draggable');
-const stickmanArea = document.getElementById('right-column');
+const container = document.getElementById('right-column');
 
 draggables.forEach(img => {
     let offsetX, offsetY;
 
-    img.addEventListener('mousedown', dragStart);
-
-    function dragStart(e) {
+    img.addEventListener('mousedown', e => {
         e.preventDefault();
 
-        // Append to stickman area if not already there
-        if (img.parentElement !== stickmanArea) {
-            stickmanArea.appendChild(img);
-        }
+        // Append to container if not already there
+        if (img.parentElement !== container) container.appendChild(img);
 
         const rect = img.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
@@ -159,39 +155,32 @@ draggables.forEach(img => {
         img.style.position = 'absolute';
         img.style.zIndex = 1000;
 
-        moveAt(e.clientX, e.clientY);
-
-        function moveAt(clientX, clientY) {
-            const stickRect = stickmanArea.getBoundingClientRect();
-            img.style.left = (clientX - stickRect.left - offsetX) + 'px';
-            img.style.top = (clientY - stickRect.top - offsetY) + 'px';
+        function move(e) {
+            const containerRect = container.getBoundingClientRect();
+            img.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
+            img.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
         }
 
-        function onMouseMove(event) {
-            moveAt(event.clientX, event.clientY);
+        function stopMove() {
+            document.removeEventListener('mousemove', move);
+            document.removeEventListener('mouseup', stopMove);
+
+            // store relative position for resizing
+            img.dataset.relLeft = img.offsetLeft / container.offsetWidth;
+            img.dataset.relTop = img.offsetTop / container.offsetHeight;
         }
 
-        document.addEventListener('mousemove', onMouseMove);
-
-        img.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            img.onmouseup = null;
-
-            // store relative position to stickman for resizing
-            const stickRect = stickmanArea.getBoundingClientRect();
-            img.dataset.relLeft = img.offsetLeft / stickRect.width;
-            img.dataset.relTop = img.offsetTop / stickRect.height;
-        };
-    }
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', stopMove);
+    });
 });
 
-// Keep images aligned relative to stickman on window resize
+// Keep images aligned on window resize
 window.addEventListener('resize', () => {
-    const stickRect = stickmanArea.getBoundingClientRect();
     draggables.forEach(img => {
         if (img.dataset.relLeft && img.dataset.relTop) {
-            img.style.left = img.dataset.relLeft * stickRect.width + 'px';
-            img.style.top = img.dataset.relTop * stickRect.height + 'px';
+            img.style.left = img.dataset.relLeft * container.offsetWidth + 'px';
+            img.style.top = img.dataset.relTop * container.offsetHeight + 'px';
         }
     });
 });
@@ -199,3 +188,4 @@ window.addEventListener('resize', () => {
 
 </body>
 </html>
+
