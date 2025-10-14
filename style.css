@@ -17,6 +17,8 @@ body {
   width: 100vw;
   overflow: hidden; /* removes all scrollbars */
   padding: 0; /* remove any invisible padding */
+  /* Neon glow effect */
+  box-shadow: 0 0 30px 10px rgba(255, 165, 0, 0.7); /* Neon orange glow */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -30,6 +32,8 @@ body {
   overflow: visible; /* allow images to extend if needed */
   background-color: rgba(255,255,255,0.6);
   border-radius: 0; /* removed borders */
+  /* Neon orange glow effect */
+  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
 /* Draggable images */
@@ -38,11 +42,14 @@ body {
   width: auto;
   cursor: grab;
   object-fit: contain;
+  /* Neon orange glow effect */
+  box-shadow: 0 0 10px 3px rgba(255, 165, 0, 0.6); /* Neon orange glow */
 }
 
 #left-column img.draggable:active {
   cursor: grabbing;
   transform: scale(1.1);
+  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 1); /* Neon orange glow */
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
@@ -57,6 +64,8 @@ body {
   overflow: visible; /* allow free placement */
   background-color: rgba(255,255,255,0.6);
   border-radius: 0; /* removed borders */
+  /* Neon orange glow effect */
+  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
 /* Stickman */
@@ -65,6 +74,8 @@ body {
   height: 320px;
   margin-top: 3cm; /* moves stickman down */
   margin-bottom: 20px;
+  /* Neon orange glow effect */
+  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
 /* Logo */
@@ -72,6 +83,8 @@ body {
   width: 100px;
   height: auto;
   margin-top: 1rem; /* space below stickman */
+  /* Neon orange glow effect */
+  box-shadow: 0 0 15px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -100,4 +113,3 @@ body {
     height: 80px;
   }
 }
-
