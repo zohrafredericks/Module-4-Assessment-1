@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <!-- NEW free-drag layer -->
+  <!-- NEW free-drag layer (kept for future drag JS if needed) -->
   <div id="drag-layer"></div>
 
   <div id="left-column">
@@ -43,43 +43,6 @@
     <img src="images/logo.png" id="logo">
   </div>
 
-  <!-- ---------------- DRAG SCRIPT ---------------- -->
-  <script>
-    const draggables = document.querySelectorAll('.draggable');
-    const dragLayer = document.getElementById('drag-layer');
-
-    draggables.forEach(img => {
-      img.addEventListener('mousedown', e => {
-        e.preventDefault();
-
-        // Move to drag layer so images can move freely
-        dragLayer.appendChild(img);
-        img.style.position = 'absolute';
-        img.style.zIndex = 1000;
-
-        // Calculate offset so image follows cursor correctly
-        const rect = img.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
-        const offsetY = e.clientY - rect.top;
-
-        function moveAt(e) {
-          img.style.left = e.clientX - offsetX + 'px';
-          img.style.top = e.clientY - offsetY + 'px';
-        }
-
-        moveAt(e);
-
-        function onMouseMove(e) { moveAt(e); }
-        document.addEventListener('mousemove', onMouseMove);
-
-        img.onmouseup = function() {
-          document.removeEventListener('mousemove', onMouseMove);
-          img.onmouseup = null;
-        };
-      });
-    });
-  </script>
 </body>
 </html>
 
- 
