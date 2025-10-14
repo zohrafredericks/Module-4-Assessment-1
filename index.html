@@ -20,7 +20,7 @@ body {
     flex-direction: row;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: hidden; /* removes scrollbars */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
@@ -135,19 +135,20 @@ body {
 </div>
 
 <script>
-// Relative sizes for each item type
+// ---------------- ITEM SIZES ----------------
 const itemSizes = {
     hat: 0.8,
     glasses: 0.4,
     shirt: 0.9,
     pants: 0.6,
     shoe: 0.2,
-    eyes: 0.3,       // optional for eyes/face decorations
+    eyes: 0.3,
     roundface: 0.5,
     catface: 0.5,
     mansuite: 0.9
 };
 
+// ---------------- VARIABLES ----------------
 const draggables = document.querySelectorAll('.draggable');
 const container = document.getElementById('right-column');
 const stickman = document.getElementById('stickman');
@@ -170,6 +171,7 @@ function scaleItem(img) {
     }
 }
 
+// ---------------- DRAG AND DROP ----------------
 draggables.forEach(img => {
     let offsetX, offsetY;
 
@@ -179,10 +181,12 @@ draggables.forEach(img => {
         // Append to container if not already
         if (img.parentElement !== container) container.appendChild(img);
 
-        // Scale automatically on pick-up
+        // Scale first
         scaleItem(img);
 
+        // Compute offsets AFTER scaling
         const rect = img.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
 
@@ -190,7 +194,6 @@ draggables.forEach(img => {
         img.style.zIndex = 1000;
 
         function move(e) {
-            const containerRect = container.getBoundingClientRect();
             img.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
             img.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
         }
@@ -199,7 +202,7 @@ draggables.forEach(img => {
             document.removeEventListener('mousemove', move);
             document.removeEventListener('mouseup', stopMove);
 
-            // store relative position for resize
+            // Store relative position for responsive resize
             img.dataset.relLeft = img.offsetLeft / container.offsetWidth;
             img.dataset.relTop = img.offsetTop / container.offsetHeight;
         }
@@ -209,7 +212,7 @@ draggables.forEach(img => {
     });
 });
 
-// Keep images aligned and scaled on window resize
+// ---------------- RESIZE HANDLER ----------------
 window.addEventListener('resize', () => {
     draggables.forEach(img => {
         if (img.dataset.relLeft && img.dataset.relTop) {
@@ -223,5 +226,3 @@ window.addEventListener('resize', () => {
 
 </body>
 </html>
-
-
