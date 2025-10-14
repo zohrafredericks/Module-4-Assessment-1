@@ -11,21 +11,25 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: block;          /* remove flex layout */
-    overflow: hidden;        /* no scrollbars */
-    position: relative;      /* allows absolute positioning inside body */
+    display: flex;
+    flex-direction: row;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;      /* removes all scrollbars */
+    padding: 20px;         /* add overall page padding */
 }
 
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
-    position: absolute;      /* free movement for drag & drop */
-    top: 10px;
-    left: 10px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    flex-basis: 40%;
+    max-width: 40%;
+    gap: 15px;             /* space between images */
+    padding: 20px;         /* padding inside left column */
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    overflow: visible;     /* allow images to extend if needed */
 }
 
 /* Draggable images */
@@ -42,30 +46,47 @@ body {
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
-    position: absolute;      /* keep stickman fixed */
-    top: 50%;
-    left: 70%;               /* position stickman on right side */
-    transform: translate(-50%, -50%);
+    flex-basis: 60%;
+    max-width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* start from top */
+    padding: 20px;               /* spacing inside right column */
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    overflow: visible;           /* allow free placement if needed */
 }
 
 /* Stickman */
 #stickman {
     width: 160px;
     height: 320px;
+    margin-bottom: 20px;
 }
 
 /* Logo */
 #logo {
     width: 100px;
     height: auto;
+    margin-top: auto;  /* push logo slightly down */
 }
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 1200px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+        width: 100vw;
+        padding: 10px;
+    }
+    #left-column, #right-column {
+        flex-basis: 90%;
+        max-width: 90%;
+        margin-bottom: 15px;
+    }
     #stickman {
         width: 120px;
         height: 240px;
@@ -74,6 +95,3 @@ body {
         height: 80px;
     }
 }
-
-
-  
