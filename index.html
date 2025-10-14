@@ -1,102 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stickman Dress-Up</title>
-<style>
-/* ---------------- BODY ---------------- */
-* { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    background-image: url('images/background01.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* ---------------- LEFT COLUMN ---------------- */
-#left-column {
-    flex-basis: 40%;
-    max-width: 40%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px;
-    background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-/* Draggable images */
-#left-column img.draggable {
-    width: auto;
-    height: 100px;
-    cursor: grab;
-    object-fit: contain;
-    transition: transform 0.1s;
-}
-#left-column img.draggable:active {
-    cursor: grabbing;
-    transform: scale(1.1);
-}
-
-/* ---------------- RIGHT COLUMN ---------------- */
-#right-column {
-    flex-basis: 60%;
-    max-width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    background-color: rgba(255,255,255,0.6);
-    border-radius: 10px;
-    position: relative;
-}
-
-/* Stickman */
-#stickman {
-    width: 160px;
-    height: 320px;
-    margin-bottom: 20px;
-}
-
-/* Logo */
-#logo {
-    width: 100px;
-    height: auto;
-}
-
-/* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 1200px) {
-    body {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
-    }
-    #left-column, #right-column {
-        flex-basis: 90%;
-        max-width: 90%;
-        margin-bottom: 0;
-    }
-    #stickman {
-        width: 120px;
-        height: 240px;
-    }
-    #left-column img.draggable {
-        height: 80px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stickman Dress-Up</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="javascript/api.js"></script>
 </head>
 <body>
 
@@ -124,95 +33,13 @@ body {
     <img src="images/shoe_01_R.png" class="draggable"/>
     <img src="images/shoe_02_L.png" class="draggable"/>
     <img src="images/shoe_02_R.png" class="draggable"/>
-</div> 
+</div>
 
 <div id="right-column">
-    <img src="images/stickman2.png" id="stickman"> 
+    <img src="images/stickman.png">
     <img src="images/logo.png" id="logo">
 </div>
 
-<script>
-const draggables = document.querySelectorAll('.draggable');
-const stickman = document.getElementById('stickman');
-const rightColumn = document.getElementById('right-column');
-
-// Define scale for each type
-const itemSizes = {
-    hat: 0.8,
-    glasses: 0.4,
-    shirt: 0.9,
-    pants: 0.6,
-    shoe: 0.2,
-    eyes: 0.3,
-    roundface: 0.5,
-    catface: 0.5,
-    mansuite: 0.9
-};
-
-function getItemType(img) {
-    const filename = img.src.split('/').pop().toLowerCase();
-    if(filename.includes('hat')) return 'hat';
-    if(filename.includes('glasses')) return 'glasses';
-    if(filename.includes('shirt') || filename.includes('mansuite')) return 'shirt';
-    if(filename.includes('pants')) return 'pants';
-    if(filename.includes('shoe')) return 'shoe';
-    if(filename.includes('eyes')) return 'eyes';
-    if(filename.includes('roundface')) return 'roundface';
-    if(filename.includes('catface')) return 'catface';
-    return null;
-}
-
-function scaleItem(img) {
-    const type = getItemType(img);
-    if(type && itemSizes[type]) {
-        img.style.width = stickman.offsetWidth * itemSizes[type] + 'px';
-        img.style.height = 'auto';
-    }
-}
-
-// ---------------- DRAG ----------------
-draggables.forEach(img => {
-    img.addEventListener('mousedown', e => {
-        e.preventDefault();
-
-        // Scale relative to stickman
-        scaleItem(img);
-
-        // Move image to right column for free dragging
-        rightColumn.appendChild(img);
-        img.style.position = 'absolute';
-        img.style.zIndex = 1000;
-
-        // Get mouse offset inside the image
-        const rect = img.getBoundingClientRect();
-        const rightRect = rightColumn.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
-        const offsetY = e.clientY - rect.top;
-
-        function moveAt(e) {
-            img.style.left = e.clientX - rightRect.left - offsetX + 'px';
-            img.style.top = e.clientY - rightRect.top - offsetY + 'px';
-        }
-
-        moveAt(e);
-
-        function onMouseMove(e) { moveAt(e); }
-        document.addEventListener('mousemove', onMouseMove);
-
-        img.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            img.onmouseup = null;
-        };
-
-        img.ondragstart = function() { return false; };
-    });
-});
-
-// Rescale images if window is resized
-window.addEventListener('resize', () => {
-    draggables.forEach(img => scaleItem(img));
-});
-</script>
-
 </body>
 </html>
+
