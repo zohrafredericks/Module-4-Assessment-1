@@ -7,9 +7,12 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: #333;
-  background-color: rgba(0, 0, 255, 0.2);  /* Light blue background to cover full screen */
+  background-image: url('images/background01.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  flex-direction: row;  /* Initially display columns side by side */
+  flex-direction: row;
   height: 100vh;
   width: 100vw;
   overflow: hidden; /* removes all scrollbars */
@@ -54,7 +57,7 @@ body::after {
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   display: flex;
-  flex-direction: column; /* Arrange header and images vertically */
+  flex-wrap: wrap;
   flex-basis: 40%;
   max-width: 40%;
   gap: 10px;
@@ -64,25 +67,6 @@ body::after {
   border-radius: 0; /* removed borders */
   /* Neon orange glow effect */
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
-}
-
-/* Header Section */
-.header-container {
-  text-align: center;
-  padding: 20px;
-  color: #fff;
-  background-color: rgba(0, 0, 255, 0.5); /* Slight blue background for header */
-  width: 100%;
-}
-
-.header-container h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.header-container p {
-  font-size: 1.1rem;
-  margin-top: 0;
 }
 
 /* Draggable images */
@@ -166,46 +150,33 @@ body::after {
 }
 
 /* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 768px) {
-  /* Stack columns on smaller screens */
+@media (max-width: 1200px) {
   body {
-    flex-direction: column; /* Stack the content vertically */
-    align-items: center;     /* Center-align the content */
-    justify-content: flex-start;
-    height: auto;            /* Allow height to adjust based on content */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 100vw;
-    padding: 10px;           /* Add some padding */
-    overflow: visible;
   }
 
-  /* Left and right columns should take full width */
   #left-column, #right-column {
-    flex-basis: 100%; /* Full width for both columns */
-    max-width: 100%;
-    margin-bottom: 20px; /* Add space between the two columns */
-    padding: 10px; /* Add some padding for spacing */
+    flex-basis: 90%;
+    max-width: 90%;
+    margin-bottom: 0;
   }
 
-  /* Ensure stickman is properly resized */
   #stickman {
-    width: 140px; /* Smaller stickman size for mobile */
-    height: 280px; /* Adjust height proportionally */
-    margin-top: 1.5cm;  /* Keep some space above stickman */
+    width: 120px;
+    height: 240px;
+    margin-top: 2cm; /* scaled down for smaller screen */
   }
 
-  /* Resize draggable images for mobile */
   #left-column img.draggable {
-    height: 60px; /* Resize draggable images to fit mobile */
-    width: auto;  /* Maintain aspect ratio */
-  }
-
-  /* Ensure logo is resized */
-  #logo {
-    width: 80px;  /* Smaller logo for mobile */
-    height: auto;
-    margin-top: 0.5rem; /* Add space below stickman */
+    height: 80px;
   }
 }
+
+
 
 
 
