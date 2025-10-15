@@ -99,10 +99,13 @@ body::after {
   width: auto;   /* Maintain aspect ratio */
 }
 
-/* Specific styling for shoe images */
-#left-column img[id^="shoe_"] {
-  height: 40px;  /* Resize shoe images to 40px */
-  width: auto;   /* Maintain aspect ratio */
+/* Specific styling for shoe images (30% smaller) */
+#left-column img#shoe_01_L,
+#left-column img#shoe_01_R,
+#left-column img#shoe_02_L,
+#left-column img#shoe_02_R {
+  height: 28px; /* 30% smaller than 40px (original size) */
+  width: auto;  /* Maintain aspect ratio */
 }
 
 /* Specific styling for catface image */
@@ -172,6 +175,4 @@ body::after {
     height: 80px;
   }
 }
-
-
 
