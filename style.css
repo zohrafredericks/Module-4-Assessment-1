@@ -51,29 +51,10 @@ body::after {
   right: 0;
 }
 
-/* ---------------- HEADER ---------------- */
-.header-container {
-  text-align: center;
-  padding: 20px;
-  color: #fff;
-  background-color: rgba(0, 0, 255, 0.5); /* Slight blue background for header */
-  width: 100%;
-}
-
-/* Heading and instructions */
-.header-container h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.header-container p {
-  font-size: 1.1rem;
-  margin-top: 0;
-}
-
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   display: flex;
+  flex-direction: column; /* Arrange header and images vertically */
   flex-wrap: wrap;
   flex-basis: 40%;
   max-width: 40%;
@@ -84,6 +65,25 @@ body::after {
   border-radius: 0; /* removed borders */
   /* Neon orange glow effect */
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
+}
+
+/* Header Section */
+.header-container {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 255, 0.5); /* Slight blue background for header */
+  width: 100%;
+}
+
+.header-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.header-container p {
+  font-size: 1.1rem;
+  margin-top: 0;
 }
 
 /* Draggable images */
@@ -194,5 +194,3 @@ body::after {
 }
 
 
-
- 
