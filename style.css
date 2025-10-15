@@ -9,7 +9,7 @@ body {
   color: #333;
   background-color: rgba(0, 0, 255, 0.2);  /* Light blue background to cover full screen */
   display: flex;
-  flex-direction: row;
+  flex-direction: row;  /* Initially display columns side by side */
   height: 100vh;
   width: 100vw;
   overflow: hidden; /* removes all scrollbars */
@@ -55,7 +55,6 @@ body::after {
 #left-column {
   display: flex;
   flex-direction: column; /* Arrange header and images vertically */
-  flex-wrap: wrap;
   flex-basis: 40%;
   max-width: 40%;
   gap: 10px;
@@ -167,29 +166,44 @@ body::after {
 }
 
 /* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
+  /* Stack columns on smaller screens */
   body {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    flex-direction: column; /* Stack the content vertically */
+    align-items: center;     /* Center-align the content */
+    justify-content: flex-start;
+    height: auto;            /* Allow height to adjust based on content */
     width: 100vw;
+    padding: 10px;           /* Add some padding */
+    overflow: visible;
   }
 
+  /* Left and right columns should take full width */
   #left-column, #right-column {
-    flex-basis: 90%;
-    max-width: 90%;
-    margin-bottom: 0;
+    flex-basis: 100%; /* Full width for both columns */
+    max-width: 100%;
+    margin-bottom: 20px; /* Add space between the two columns */
+    padding: 10px; /* Add some padding for spacing */
   }
 
+  /* Ensure stickman is properly resized */
   #stickman {
-    width: 120px;
-    height: 240px;
-    margin-top: 2cm; /* scaled down for smaller screen */
+    width: 140px; /* Smaller stickman size for mobile */
+    height: 280px; /* Adjust height proportionally */
+    margin-top: 1.5cm;  /* Keep some space above stickman */
   }
 
+  /* Resize draggable images for mobile */
   #left-column img.draggable {
-    height: 80px;
+    height: 60px; /* Resize draggable images to fit mobile */
+    width: auto;  /* Maintain aspect ratio */
+  }
+
+  /* Ensure logo is resized */
+  #logo {
+    width: 80px;  /* Smaller logo for mobile */
+    height: auto;
+    margin-top: 0.5rem; /* Add space below stickman */
   }
 }
 
