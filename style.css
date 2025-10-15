@@ -7,10 +7,7 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: #333;
-  background-image: url('images/background01.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 255, 0.2);  /* Light blue background to cover full screen */
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -176,3 +173,5 @@ body::after {
   }
 }
 
+
+ 
