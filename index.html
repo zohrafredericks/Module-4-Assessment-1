@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Your Own Custom Stickman!</title> <!-- Catchy Title -->
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="javascript/api.js"></script>
+  <script type="text/javascript" src="javascript/api.js"></script> <!-- Your JavaScript file -->
 </head>
 <body>
   <!-- LEFT COLUMN: Header + Draggable Images -->
@@ -17,35 +17,37 @@
     </div>
     
     <!-- Draggable Images -->
-    <img src="images/eyes_01.png" class="draggable" id="eyes_01"/>
-    <img src="images/eyes_03.png" class="draggable" id="eyes_03"/>
-    <img src="images/roundface.png" class="draggable" id="roundface"/>
-    <img src="images/catface.png" class="draggable" id="catface"/>
-    <img src="images/redhat.png" class="draggable" id="redhat"/>
-    <img src="images/hat_02.png" class="draggable" id="hat_02"/>
-    <img src="images/glasses_01.png" class="draggable" id="glasses_01"/>
-    <img src="images/glasses_03.png" class="draggable" id="glasses_03"/>
-    <img src="images/mansuite.jpg" class="draggable" id="mansuite"/>
-    <img src="images/shirt_01.png" class="draggable" id="shirt_01"/>
-    <img src="images/shirt_02.png" class="draggable" id="shirt_02"/>
-    <img src="images/shirt_03.png" class="draggable" id="shirt_03"/>
-    <img src="images/shirt_04.png" class="draggable" id="shirt_04"/>
-    <img src="images/shirt_05.png" class="draggable" id="shirt_05"/>
-    <img src="images/pants_01.png" class="draggable" id="pants_01"/>
-    <img src="images/pants_02.png" class="draggable" id="pants_02"/>
-    <img src="images/pants_03.png" class="draggable" id="pants_03"/>
-    <img src="images/pants_04.png" class="draggable" id="pants_04"/>
-    <img src="images/pants_05.png" class="draggable" id="pants_05"/>
-    <img src="images/shoe_01_L.png" class="draggable" id="shoe_01_L"/>
-    <img src="images/shoe_01_R.png" class="draggable" id="shoe_01_R"/>
-    <img src="images/shoe_02_L.png" class="draggable" id="shoe_02_L"/>
-    <img src="images/shoe_02_R.png" class="draggable" id="shoe_02_R"/>
+    <img src="images/eyes_01.png" class="draggable" id="eyes_01" draggable="true"/>
+    <img src="images/eyes_03.png" class="draggable" id="eyes_03" draggable="true"/>
+    <img src="images/roundface.png" class="draggable" id="roundface" draggable="true"/>
+    <img src="images/catface.png" class="draggable" id="catface" draggable="true"/>
+    <img src="images/redhat.png" class="draggable" id="redhat" draggable="true"/>
+    <img src="images/hat_02.png" class="draggable" id="hat_02" draggable="true"/>
+    <img src="images/glasses_01.png" class="draggable" id="glasses_01" draggable="true"/>
+    <img src="images/glasses_03.png" class="draggable" id="glasses_03" draggable="true"/>
+    <img src="images/mansuite.jpg" class="draggable" id="mansuite" draggable="true"/>
+    <img src="images/shirt_01.png" class="draggable" id="shirt_01" draggable="true"/>
+    <img src="images/shirt_02.png" class="draggable" id="shirt_02" draggable="true"/>
+    <img src="images/shirt_03.png" class="draggable" id="shirt_03" draggable="true"/>
+    <img src="images/shirt_04.png" class="draggable" id="shirt_04" draggable="true"/>
+    <img src="images/shirt_05.png" class="draggable" id="shirt_05" draggable="true"/>
+    <img src="images/pants_01.png" class="draggable" id="pants_01" draggable="true"/>
+    <img src="images/pants_02.png" class="draggable" id="pants_02" draggable="true"/>
+    <img src="images/pants_03.png" class="draggable" id="pants_03" draggable="true"/>
+    <img src="images/pants_04.png" class="draggable" id="pants_04" draggable="true"/>
+    <img src="images/pants_05.png" class="draggable" id="pants_05" draggable="true"/>
+    <img src="images/shoe_01_L.png" class="draggable" id="shoe_01_L" draggable="true"/>
+    <img src="images/shoe_01_R.png" class="draggable" id="shoe_01_R" draggable="true"/>
+    <img src="images/shoe_02_L.png" class="draggable" id="shoe_02_L" draggable="true"/>
+    <img src="images/shoe_02_R.png" class="draggable" id="shoe_02_R" draggable="true"/>
   </div>
 
   <!-- RIGHT COLUMN: Drop Area -->
   <div id="right-column">
-    <img src="images/stickman.png" id="stickman" alt="Stickman">
+    <img src="images/stickman.png" id="stickman" alt="Stickman" ondrop="drop(event)" ondragover="allowDrop(event)">
     <img src="images/logo.png" id="logo" alt="Logo">
   </div>
+
+  <!-- Remove the JavaScript at the bottom, the following JS is in the "api.js" file -->
 </body>
 </html>
