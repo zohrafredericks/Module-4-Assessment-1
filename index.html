@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Your Own Custom Stickman!</title> <!-- Catchy Title -->
-  <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="javascript/api.js"></script> <!-- Your JavaScript file -->
+  <title>Create Your Own Custom Stickman!</title>
+  <link rel="stylesheet" href="style.css"> <!-- Your CSS file -->
 </head>
 <body>
   <!-- LEFT COLUMN: Header + Draggable Images -->
@@ -44,10 +43,13 @@
 
   <!-- RIGHT COLUMN: Drop Area -->
   <div id="right-column">
-    <img src="images/stickman.png" id="stickman" alt="Stickman" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <img src="images/stickman.png" id="stickman" alt="Stickman">
     <img src="images/logo.png" id="logo" alt="Logo">
   </div>
 
-  <!-- Remove the JavaScript at the bottom, the following JS is in the "api.js" file -->
+  <!-- JavaScript file for Drag and Drop -->
+  <script type="text/javascript" src="javascript/api.js"></script> <!-- Your JavaScript file -->
 </body>
 </html>
+
+  
