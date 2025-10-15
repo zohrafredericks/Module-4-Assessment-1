@@ -51,6 +51,26 @@ body::after {
   right: 0;
 }
 
+/* ---------------- HEADER ---------------- */
+.header-container {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 255, 0.5); /* Slight blue background for header */
+  width: 100%;
+}
+
+/* Heading and instructions */
+.header-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.header-container p {
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   display: flex;
@@ -172,7 +192,6 @@ body::after {
     height: 80px;
   }
 }
-
 
 
 
