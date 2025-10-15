@@ -7,9 +7,12 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: #333;
-  background-color: rgba(0, 0, 255, 0.2);  /* Light blue background to cover full screen */
+  background-image: url('images/background01.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  flex-direction: row;  /* Columns side by side on desktop */
+  flex-direction: row; /* Initially display columns side by side */
   height: 100vh;
   width: 100vw;
   overflow: hidden; /* removes all scrollbars */
@@ -20,8 +23,7 @@ body {
 }
 
 /* Adding a subtle light neon blue border to the four corners */
-body::before,
-body::after {
+body::before, body::after {
   content: '';
   position: absolute;
   width: 10px;
@@ -54,17 +56,16 @@ body::after {
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   display: flex;
-  flex-direction: row; /* Arrange images horizontally on desktop */
-  flex-wrap: wrap; /* Allow images to wrap if necessary */
-  flex-basis: 40%;
-  max-width: 40%; /* Left column will take 40% width */
+  flex-wrap: wrap;
+  flex-basis: 40%; /* Left column takes 40% of the screen width */
+  max-width: 40%;
   gap: 10px;
   padding: 10px;
-  overflow: hidden; /* Prevent images from overflowing into the right column */
   background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 0; /* removed borders */
-  /* Neon orange glow effect */
+  border-radius: 0;
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
+  position: relative;
+  z-index: 1; /* Ensure left column stays on top */
 }
 
 /* Header Section */
@@ -92,59 +93,53 @@ body::after {
   width: auto;
   cursor: grab;
   object-fit: contain;
-  /* Neon orange glow effect */
-  box-shadow: 0 0 10px 3px rgba(255, 165, 0, 0.6); /* Neon orange glow */
+  position: absolute; /* Allow movement across both columns */
+  z-index: 2; /* Ensure the dragged image stays on top of other elements */
+  transition: transform 0.1s ease-in-out; /* Smooth dragging transition */
+  box-shadow: 0 0 10px 3px rgba(255, 165, 0, 0.6);
 }
 
 #left-column img.draggable:active {
   cursor: grabbing;
   transform: scale(1.1);
-  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 1); /* Neon orange glow */
+  box-shadow: 0 0 20px 5px rgba(255, 165, 0, 1);
 }
 
 /* Resize Eyes, Glasses, and Shoes to fit the Stickman */
-
-/* Specific styling for eyes images */
 #left-column img[id^="eyes_"] {
-  height: 40px;  /* Resize eyes images to fit the stickman */
-  width: auto;   /* Maintain aspect ratio */
+  height: 40px;
+  width: auto;
 }
 
-/* Specific styling for glasses images */
 #left-column img[id^="glasses_"] {
-  height: 40px;  /* Resize glasses images to fit the stickman */
-  width: auto;   /* Maintain aspect ratio */
+  height: 40px;
+  width: auto;
 }
 
-/* Specific styling for shoe images (30% smaller) */
-#left-column img#shoe_01_L,
-#left-column img#shoe_01_R,
-#left-column img#shoe_02_L,
-#left-column img#shoe_02_R {
-  height: 28px; /* 30% smaller than 40px (original size) */
-  width: auto;  /* Maintain aspect ratio */
+#left-column img[id^="shoe_"] {
+  height: 40px;
+  width: auto;
 }
 
-/* Specific styling for catface image */
 #left-column img[src="images/catface.png"] {
-  height: 50px;  /* Resize catface.png to 50px in height */
-  width: auto;   /* Maintain aspect ratio */
+  height: 50px;
+  width: auto;
 }
 
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex-basis: 60%;
-  max-width: 60%; /* Right column takes 60% width */
+  max-width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: 0; /* remove invisible padding */
-  overflow: visible; /* allow free placement */
   background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 0; /* removed borders */
-  /* Neon orange glow effect */
+  border-radius: 0;
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
+  position: relative;
+  z-index: 1; /* Ensure right column stays on top */
 }
 
 /* Stickman */
@@ -153,7 +148,6 @@ body::after {
   height: 320px;
   margin-top: 3cm; /* moves stickman down */
   margin-bottom: 20px;
-  /* Neon orange glow effect */
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
@@ -162,58 +156,48 @@ body::after {
   width: 100px;
   height: auto;
   margin-top: 1rem; /* space below stickman */
-  /* Neon orange glow effect */
   box-shadow: 0 0 15px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
 }
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
-  /* Stack the columns vertically on smaller screens */
+  /* Stack columns on smaller screens */
   body {
-    flex-direction: column; /* Stack content vertically */
-    align-items: center;     /* Center-align content */
+    flex-direction: column; /* Stack the content vertically */
+    align-items: center;
     justify-content: flex-start;
-    height: auto;            /* Allow height to adjust based on content */
+    height: auto; /* Allow height to adjust based on content */
     width: 100vw;
-    padding: 10px;           /* Add some padding */
+    padding: 10px; /* Add some padding */
     overflow: visible;
   }
 
-  /* Ensure left and right columns take full width on mobile */
+  /* Left and right columns should take full width */
   #left-column, #right-column {
-    flex-basis: 100%; /* Full width on mobile */
+    flex-basis: 100%; /* Full width for both columns */
     max-width: 100%;
-    margin-bottom: 20px; /* Add space between the columns */
-    padding: 10px;
+    margin-bottom: 20px; /* Add space between the two columns */
+    padding: 10px; /* Add some padding for spacing */
   }
 
-  /* Resize the stickman */
+  /* Ensure stickman is properly resized */
   #stickman {
     width: 140px; /* Smaller stickman size for mobile */
-    height: 280px;
-    margin-top: 1.5cm;  /* Keep space above stickman */
+    height: 280px; /* Adjust height proportionally */
+    margin-top: 1.5cm; /* Keep some space above stickman */
   }
 
-  /* Resize the draggable images */
+  /* Resize draggable images for mobile */
   #left-column img.draggable {
-    height: 60px; /* Resize images for mobile */
-    width: auto;  /* Maintain aspect ratio */
+    height: 60px; /* Resize draggable images to fit mobile */
+    width: auto; /* Maintain aspect ratio */
   }
 
-  /* Resize logo */
+  /* Ensure logo is resized */
   #logo {
-    width: 80px;  /* Smaller logo on mobile */
+    width: 80px; /* Smaller logo for mobile */
     height: auto;
-    margin-top: 0.5rem;
-  }
-
-  /* Resize header text */
-  .header-container h1 {
-    font-size: 1.5rem; /* Smaller header for mobile */
-  }
-
-  .header-container p {
-    font-size: 1rem; /* Adjust text size */
+    margin-top: 0.5rem; /* Add space below stickman */
   }
 }
 
