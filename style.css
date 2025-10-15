@@ -54,13 +54,14 @@ body::after {
 /* ---------------- LEFT COLUMN ---------------- */
 #left-column {
   display: flex;
-  flex-direction: column; /* Arrange header and images vertically */
+  flex-direction: row; /* Arrange images horizontally on desktop */
+  flex-wrap: wrap; /* Allow images to wrap if necessary */
   flex-basis: 40%;
-  max-width: 40%;
+  max-width: 40%; /* Left column will take 40% width */
   gap: 10px;
   padding: 10px;
-  overflow: visible; /* allow images to extend if needed */
-  background-color: rgba(255,255,255,0.6);
+  overflow: hidden; /* Prevent images from overflowing into the right column */
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 0; /* removed borders */
   /* Neon orange glow effect */
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
@@ -133,14 +134,14 @@ body::after {
 /* ---------------- RIGHT COLUMN ---------------- */
 #right-column {
   flex-basis: 60%;
-  max-width: 60%;
+  max-width: 60%; /* Right column takes 60% width */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: 0; /* remove invisible padding */
   overflow: visible; /* allow free placement */
-  background-color: rgba(255,255,255,0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 0; /* removed borders */
   /* Neon orange glow effect */
   box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Neon orange glow */
@@ -215,4 +216,5 @@ body::after {
     font-size: 1rem; /* Adjust text size */
   }
 }
+
 
